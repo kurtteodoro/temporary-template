@@ -1,0 +1,89 @@
+.layout-inline-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 0 none;
+    padding-bottom: 1.5rem;
+
+    &.layout-inline-menu-active {
+        .layout-inline-menu-icon {
+            transform: rotate(-180deg);
+        }
+    }
+
+    .layout-inline-menu-action {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        cursor: pointer;
+        padding: 2rem 2rem 1rem 2rem;
+        color: $textColor;
+
+        img {
+            border-radius: 22px;
+            border: 2px solid transparent;
+        }
+
+        .layout-inline-menu-text {
+            display: flex;
+            flex-direction: column;
+            font-weight: 500;
+            margin-left: 7px;
+        }
+
+        .layout-inline-menu-icon {
+            margin-left: auto;
+        }
+    }
+
+    .layout-inline-menu-action-panel {
+        padding: 0 1.5rem;
+
+        .layout-inline-menu-action-item {
+            border-radius: $borderRadius;
+            transition: all $transitionDuration;
+            cursor: pointer;
+            user-select: none;
+            margin-top: .2rem;
+
+            &:last-child {
+                margin-bottom: .5rem;
+            }
+
+            a, button {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                padding: 0.5rem 1rem;
+                border-left: 8px solid transparent;
+                border-radius: 8px;
+                color: $textColor;
+
+                i {
+                    margin-right: .75rem;
+                }
+            }
+        }
+
+        &.layout-inline-menu-action-panel-enter-from,
+		&.layout-inline-menu-action-panel-leave-to {
+			max-height: 0;
+		}
+
+		&.layout-inline-menu-action-panel-enter-to,
+		&.layout-inline-menu-action-panel-leave-from {
+			max-height: 1000px;
+		}
+
+		&.layout-inline-menu-action-panel-leave-active {
+			overflow: hidden;
+			transition: max-height 400ms cubic-bezier(0.86, 0, 0.07, 1);
+		}
+
+		&.layout-inline-menu-action-panel-enter-active {
+			overflow: hidden;
+			transition: max-height 1s ease-in-out;
+		}
+    }
+}

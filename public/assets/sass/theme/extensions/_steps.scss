@@ -1,0 +1,50 @@
+//steps
+.p-steps {
+    .p-steps-item {
+        .p-menuitem-link {
+            .p-steps-number {
+                background: $stepsItemNumberBg;
+            }
+
+            &:hover {
+                cursor: pointer;
+
+                .p-steps-number {
+                    background: $stepsItemHoverBg;
+                    color: $stepsItemHoverTextColor;
+                }
+
+                .p-steps-title {
+                    color: $stepsItemHoverTextColor;
+                }
+            }
+        }
+
+        &.p-highlight {
+            .p-menuitem-link {
+                .p-steps-number {
+                    background: $stepsItemActiveBg;
+                    color: $stepsItemNumberActiveTextColor;
+                    box-shadow: $stepsItemActiveShadow;
+                }
+
+                .p-steps-title {
+                    color: $stepsItemActiveTextColor;
+                }
+
+                &:hover {
+                    cursor: pointer;
+
+                    .p-steps-number {
+                        background: $stepsItemActiveBg;
+                        color: $stepsItemNumberActiveTextColor;
+                    }
+
+                    .p-steps-title {
+                        color: $stepsItemActiveTextColor;
+                    }
+                }
+            }
+        }
+    }
+}

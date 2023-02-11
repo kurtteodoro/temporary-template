@@ -1,0 +1,131 @@
+.exception-body {
+    background-image: $exceptionPagesImage;
+    background-repeat: no-repeat;
+    background-size: contain;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    &.notfound {
+        .exception-panel {
+            h1 {
+                color: #0F8BFD;
+                text-shadow: 0px 0px 50px rgba(#0F8BFD, 0.2);
+            }
+
+            h3 {
+                color: darken(#0F8BFD, 30%);
+            }
+        }
+    }
+
+    &.accessdenied {
+        .exception-panel {
+            h1 {
+                color: #0F8BFD;
+                text-shadow: 0px 0px 50px rgba(#0F8BFD, 0.2);
+            }
+
+            h3 {
+                color: darken(#0F8BFD, 30%);
+            }
+        }
+    }
+
+    &.error {
+        .exception-panel {
+            h1 {
+                color: #FC6161;
+                text-shadow: 0px 0px 50px rgba(#FC6161, 0.2);
+            }
+
+            h3 {
+                color: lighten(#FC6161, 10%);
+                max-width: 720px;
+            }
+        }
+    }
+
+    .exception-panel {
+        text-align: center;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-top: -200px;
+
+        h1 {
+            font-size: 140px;
+            font-weight: 900;
+            margin-bottom: 0;
+        }
+
+        h3 {
+            font-size: 80px;
+            font-weight: 900;
+            margin-top: -90px;
+            margin-bottom: 50px;
+        }
+
+        p {
+            font-size: 24px;
+            font-weight: 400;
+            max-width: 320px;
+        }
+
+        button {
+            margin-top: 50px;
+        }
+    }
+
+    .exception-footer {
+        position: absolute;
+        bottom: 60px;
+        align-items: center;
+        display: flex;
+
+        .exception-logo {
+            width: 34px;
+        }
+
+        .exception-appname {
+            width: 72px;
+            margin-left: 1rem;
+        }
+    }
+}
+
+@media (max-width: $phoneBreakpoint) {
+    .exception-body {
+        background-size: auto;
+
+        &.accessdenied, &.error {
+            .exception-panel {
+                h1 {
+                    font-size: 70px;
+                }
+
+                h3 {
+                    font-size: 40px;
+                    margin-top: -30px;
+                }
+            }
+        }
+
+        .exception-panel {
+            margin-top: 0;
+
+            h3 {
+                line-height: .75;
+            }
+
+            button {
+                margin-top: 0;
+            }
+        }
+    }
+}

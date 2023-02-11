@@ -1,0 +1,18 @@
+//calendar
+.p-datepicker {
+    table {
+        th {
+            > span {
+                color: $calendarHeaderCellTextColor;
+                font-size: $calendarHeaderCellFontSize;
+                font-weight: $calendarHeaderCellFontWeight;
+            }
+        }
+
+        td {
+            > span {
+                background: $calendarCellDateBg;
+            }
+        }
+    }
+}

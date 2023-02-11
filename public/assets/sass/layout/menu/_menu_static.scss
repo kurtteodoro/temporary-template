@@ -1,0 +1,108 @@
+@media (min-width: $tabletBreakpoint + 1) {
+    .layout-wrapper {
+        &.layout-static {
+            .menu-button {
+                width: 32px;
+                height: 32px;
+                line-height: 35px;
+                margin-left: 30px;
+                text-align: center;
+                border-radius: 6px;
+                background-color: $topbarIconBg;
+                color: $topbarTextColor;
+                @include transition(color .3s);
+
+                &:hover {
+                    color: $topbarTextHoverColor;
+                }
+
+                i {
+                    font-size: 1.25rem;
+                }
+            }
+
+            .layout-menu-wrapper {
+                position: fixed;
+                transition: transform $animationDuration $animationTimingFunction;
+
+                .layout-menu-container {
+                    ul {
+                        .layout-root-menuitem {
+                            > a {
+                                display: none;
+                            }
+
+                            &:not(.active-menuitem) {
+                                ul {
+                                    transition: none;
+                                }
+                            }
+                        }
+                    }
+
+                    .layout-menu {
+                        > li {
+                            margin-bottom: 2.25rem;
+                        }
+
+                        li {
+                            a {
+                                border-left: 8px solid transparent;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .layout-main {
+                margin-left: $menuWidth;
+
+                .layout-topbar {
+                    display: none;
+                }
+
+                .layout-main-content {
+                    padding-top: 20px;
+                }
+            }
+
+            &.layout-static-inactive {
+                .layout-menu-wrapper {
+                    transform: translateX(-100%);
+                }
+
+                .layout-main {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $tabletBreakpoint) {
+    .layout-wrapper {
+        &.layout-static {
+            .menu-button {
+                display: none;
+            }
+
+            .layout-menu-wrapper {
+                .layout-menu-container {
+                    .layout-menu {
+                        > li {
+                            > ul {
+                                max-height: 0;
+                                transition: max-height 400ms cubic-bezier(0.86, 0, 0.07, 1);
+                            }
+                        }
+                        > li.active-menuitem {
+                            > ul {
+                                max-height: 500px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

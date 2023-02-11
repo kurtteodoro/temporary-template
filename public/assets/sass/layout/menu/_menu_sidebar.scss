@@ -1,0 +1,237 @@
+@media (min-width: $tabletBreakpoint + 1) {
+    .layout-wrapper {
+        &.layout-sidebar {
+            &.layout-sidebar-static {
+                .layout-main {
+                    margin-left: 21rem;
+                }
+            }
+
+            .layout-menu-wrapper {
+                height: 100%;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 999;
+                width: $sidebarInactiveMenuWidth;
+                mix-blend-mode: normal;
+                @include transition(all $transitionDuration);
+
+                .menu-logo {
+                    padding-left: 25px;
+
+                    .app-name {
+                        display: none;
+                    }
+                }
+
+                &.layout-sidebar-active {
+                    transform: translate3d(0px, 0px, 0px);
+                    width: $menuWidth;
+
+                    .menu-logo {
+                        .app-name {
+                            display: inline;
+                            @include transition(all $transitionDuration);
+                        }
+                    }
+
+                    .menu-pin {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    .layout-menu-container {
+                        overflow: auto;
+
+                        .layout-menu {
+                            padding-right: 22px;
+
+                            li {
+                                
+                                > a {
+                                    > span {
+                                        visibility: visible;
+                                    }
+
+                                    > i {
+                                        &.layout-submenu-toggler {
+                                            visibility: visible;
+                                        }
+                                    }
+                                }
+
+                                > ul {
+                                    > li {
+                                        a {
+                                            @include transition(all $transitionDuration);
+                                            padding-left: 16px;
+                                        }
+                                    }
+                                }
+
+                                ul {
+                                    li {
+                                        @include nested-submenu-indents(8, 3, 8);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .layout-inline-menu {
+                        .layout-inline-menu-action {
+                            .layout-inline-menu-text, .layout-inline-menu-icon {
+                                visibility: visible;
+                            }
+
+                            .layout-inline-menu-icon {
+                                transition: all $transitionDuration;
+                            }
+                        }
+
+                        .layout-inline-menu-action-panel {
+                            .layout-inline-menu-action-item {
+                                a, button {
+                                    span {
+                                        visibility: visible;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .layout-menu-container {
+                    height: 100%;
+                    overflow: hidden;
+
+                    .layout-menu {
+                        list-style-type: none;
+                        margin: 0;
+                        padding: 0 26px 0 22px;
+                        overflow: hidden;
+
+                        > li {
+
+                            .layout-menuitem-root-text {
+                                display: none;
+                            }
+
+                            > ul {
+                                > li {
+                                    margin-left: 6px;
+                                    @include border-radius(8px);
+                                }
+                            }
+                        }
+
+                        li {
+                            padding: 6px;
+
+                            &.active-menuitem {
+                                > a {
+                                    i.layout-submenu-toggler {
+                                        @include rotate(-180deg);
+                                    }
+                                }
+                            }
+
+                            > a {
+                                margin: 0px;
+                                @include flex();
+                                @include flex-align-center();
+                                @include border-radius(8px);
+                                padding: 8px;
+                                user-select: none;
+                                cursor: pointer;
+
+                                > span {
+                                    margin: 0 .5rem;
+                                    margin-left: 1rem;
+                                    visibility: hidden;
+                                    white-space: nowrap;
+                                }
+
+                                > i {
+                                    font-size: 1.25rem;
+                                    width: auto;
+
+                                    &.layout-submenu-toggler {
+                                        @include transition(transform $transitionDuration);
+                                        margin-left: auto;
+                                        font-size:12px ;
+                                        visibility: hidden;
+                                    }
+                                }
+
+                                &.rotated-icon {
+                                    .layout-menuitem-icon {
+                                        transform: rotate(90deg);
+                                    }
+                                }
+                            }
+
+                            > ul {
+                                list-style-type: none;
+                                overflow: hidden;
+                                padding: 0;
+                                margin: 0;
+
+                                li {
+                                    padding: 6px 0 0 0;
+                                    margin: 0;
+
+                                    a {
+                                        @include transition(all $transitionDuration);
+                                    }
+
+                                    ul {
+                                        li {
+                                            padding: 0;
+                                        }
+                                    }
+
+                                    &.layout-root-menuitem {
+                                        > a {
+                                            @include flex();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .layout-inline-menu {
+                    .layout-inline-menu-action {
+                        .layout-inline-menu-text, .layout-inline-menu-icon {
+                            white-space: nowrap;
+                            visibility: hidden;
+                        }
+                    }
+
+                    .layout-inline-menu-action-panel {
+                        .layout-inline-menu-action-item {
+                            a, button {
+                                span {
+                                    white-space: nowrap;
+                                    visibility: hidden;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .layout-main {
+                margin-left: 92px;
+
+                .layout-topbar {
+                    display: none;
+                }
+            }
+        }
+    }
+}

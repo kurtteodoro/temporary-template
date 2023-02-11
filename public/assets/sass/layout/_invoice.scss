@@ -1,0 +1,174 @@
+.p-button-outlined.invoice-button {
+    color: inherit;
+}
+
+.invoice {
+    padding: 2.429rem;
+
+    .invoice-header {
+        @include flex();
+        @include flex-justify-between();
+
+        .invoice-company {
+            .invoice-logo {
+                height: 2.25rem;
+            }
+
+            .invoice-appname {
+                height: 1.25rem;
+                margin-left: .75rem;
+            }
+        }
+
+        .customer-id {
+            line-height: 16px;
+            text-align: right;
+            color: $textSecondaryColor;
+        }
+
+        .invoice-address {
+            font-size: .786rem;
+            line-height: 16px;
+            color: $textThirdColor;
+        }
+    }
+
+    .invoice-to {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        line-height: 1.429rem;
+        border-top: 1px solid $dividerColor;
+
+        .invoice-date {
+            font-size: .786rem;
+            font-weight: 500;
+            color: $textThirdColor;
+        }
+
+        .invoice-id {
+            font-size: 1.714rem;
+            font-weight: 500;
+
+            span {
+                margin-left: .5rem;
+                font-size: 1.429rem;
+                font-weight: 300;
+                color: $textThirdColor;
+            }
+        }
+
+        .invoice-to-name {
+            margin-top: 2rem;
+            font-size: 1.143rem;
+            font-weight: 600;
+        }
+
+        .invoice-to-info {
+            margin-top: .25rem;
+            color: $textThirdColor;
+            font-size: 0.857rem;
+        }
+    }
+
+    .invoice-items {
+        margin-top: 2rem;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            thead tr {
+                border-bottom: 1px solid $dividerColor;
+            }
+
+            tbody tr:last-child {
+                border-bottom: 1px solid $dividerColor;
+            }
+
+            th {
+                font-size: 0.714rem;
+                color: $textThirdColor;
+            }
+
+            th, td {
+                padding: .5rem 1rem;
+                text-align: right;
+            }
+
+            tr{
+                &:first-child {
+                    td {
+                        padding-top: 1rem;
+                    }
+                }
+
+                &:last-child {
+                    td {
+                        padding-bottom: 1rem;
+                    }
+                }
+            }
+
+            th:first-child, td:first-child {
+                text-align: left;
+            }
+        }
+    }
+
+    .invoice-summary {
+        margin-top: 1rem;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            tbody tr {
+                &:last-child {
+                    font-weight: 600;
+                    border-bottom: 1px solid $primaryColor;
+
+                    td {
+                        padding-bottom: 1rem;
+                    }
+                }
+
+                &:first-child, &:nth-child(2) {
+                    td:first-child {
+                        color: $textThirdColor;
+                    }
+                }
+
+                td:last-child {
+                    text-align: right;
+                }
+
+                td {
+                    padding: .5rem 1rem;
+                }
+            }
+        }
+    }
+
+    .invoice-notes {
+        margin-top: 2rem;
+        padding-left: .5rem;
+    }
+}
+
+@media print{
+    body * {
+        visibility: hidden;
+        color: black;
+    }
+    #invoice-content * {
+        visibility: visible;
+    }
+    #invoice-content {
+        width: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+        padding: 0;
+        margin: 0;
+    }
+}

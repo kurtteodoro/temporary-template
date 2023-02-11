@@ -1,0 +1,14 @@
+//dialog
+.p-dialog {
+    border-radius: $dialogBorderRadius;
+
+    .p-dialog-header {
+        border-top-right-radius: $dialogBorderRadius;
+        border-top-left-radius: $dialogBorderRadius;
+    }
+
+    .p-dialog-footer {
+        border-bottom-right-radius: $dialogBorderRadius;
+        border-bottom-left-radius: $dialogBorderRadius;
+    }
+}

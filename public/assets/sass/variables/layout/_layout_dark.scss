@@ -1,0 +1,70 @@
+@import './_common';
+
+$bodyBg: linear-gradient(180deg, #2E323F 0%, #0A061A 100%) !default;
+$bodyImage:  url("../../../layout/images/effect-ondark.png") !default;
+$textColor: #ffffff !default;
+$textSecondaryColor: #C8CCD8 !default;
+$textThirdColor: #868C9B !default;
+$dividerColor:rgba(255, 255, 255, 0.15) !default;
+
+//loader
+$loaderPathColor:#ECECF9 !default;
+
+//card
+$cardBg: rgba(255, 255, 255, 0.05) !default;
+$cardBorder: 0 none !default;
+
+//topbar
+$topbarTextColor: $textSecondaryColor !default;
+$topbarTextHoverColor: $textColor !default;
+$topbarIconBg: rgba(255, 255, 255, 0.05) !default;
+$topbarIconHoverBg: rgba(255, 255, 255, 0.1) !default;
+
+$topbarSubmenuBg:linear-gradient(180deg, #2E323F 0%, #0A061A 100%) !default;
+$topbarSubmenuItemHoverBgColor: rgba(255, 255, 255, 0.05) !default;
+
+//menu
+$menuWidth: 21rem !default;
+$slimMenuWidth: 5.857rem !default;
+$sidebarInactiveMenuWidth: 6.571em !default;
+$menuBg: linear-gradient(180deg, #2E323F 0%, #0A061A 100%) !default;
+$menuIconBg: rgba(255, 255, 255, 0.05) !default;
+$menuIconHoverBg: rgba(255, 255, 255, 0.1) !default;
+$menuIconTextColor: $textSecondaryColor !default;
+$menuIconHoverTextColor: $textColor !default;
+
+$rootMenuItemTextColor: $textSecondaryColor !default;
+$rootMenuItemHoverTextColor: $textColor !default;
+$rootMenuItemHoverBg: rgba(255, 255, 255, 0.05) !default;
+$activeRootMenuItemTextColor: $primaryColor !default;
+
+$submenuItemTextColor: $textColor !default;
+$submenuItemHoverTextColor: $textColor !default;
+$submenuItemHoverBg: rgba(255, 255, 255, 0.05) !default;
+$activeSubmenuItemTextColor: $primaryColor !default;
+
+$overlayMenuActiveBg: rgba(255, 255, 255, 0.05) !default;
+$overlayMenuItemActiveBg: $primaryColor !default;
+$overlayMenuItemActiveTextColor: $primaryTextColor !default;
+
+$slimRootMenuItemIconColor: $textColor !default;
+$slimActiveRootMenuItemBgColor: $primaryColor !default;
+$slimActiveRootMenuItemTextColor: $primaryTextColor !default;
+$slimMenuItemTextColor: $textColor !default;
+
+//inline menu
+$inlineMenuImageHoverBorderColor: #868C9B !default;
+
+//rightmenu
+$rightMenuWidth: 24.571rem !default;
+$rightMenuBg: linear-gradient(180deg, #2E323F 0%, #0A061A 100%) !default;
+$rightMenuButtonBg: rgba(255, 255, 255, 0.05) !default;
+$rightMenuListItemBg: rgba(255, 255, 255, 0.05) !default;
+
+//dashboard
+$progressBarBg: rgba(255, 255, 255, 0.1) !default;
+
+//pages
+$helpHeaderBg: linear-gradient(179.2deg, rgba(15, 139, 253, 0.2) 0.69%, rgba(15, 139, 253, 0) 108.44%), rgba(255, 255, 255, 0.05) !default;
+$helpHeaderImage:  url("../../../layout/images/effect-ondark.svg") !default;
+$exceptionPagesImage: url("../../../layout/images/pages/exception-ondark.png") !default;

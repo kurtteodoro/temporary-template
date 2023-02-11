@@ -1,0 +1,38 @@
+//picklist
+.p-picklist {
+    .p-picklist-list-wrapper {
+        background: $picklistBg;
+        box-shadow: $picklistShadow;
+        border-radius: $picklistBorderRadius;
+    }
+
+    .p-picklist-header {
+        border: $picklistBorder;
+        border-width: $picklistBorderWidth;
+        padding: $picklistHeaderPadding;
+    }
+
+
+    .p-picklist-filter-container {
+        border: $picklistBorder;
+        border-width: $picklistBorderWidth;
+    }
+
+    .p-picklist-list {
+        border: $picklistBorder;
+        border-width: $picklistBorderWidth;
+        padding: $picklistListPadding;
+
+        .p-picklist-item {
+            padding: $picklistListItemPadding;
+            border-radius: $borderRadius;
+            border: $picklistListItemBorder;
+
+            &.p-highlight {
+                color: $textColor;
+                background: $picklistListItemActiveBg;
+                border-color: $picklistListItemActiveBorderColor;
+            }
+        }
+    }
+}

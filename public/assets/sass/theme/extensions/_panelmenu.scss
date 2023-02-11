@@ -1,0 +1,20 @@
+//panelmenu
+.p-panelmenu {
+    .p-panelmenu-header {
+        > a {
+            color: $panelmenuHeaderTextColor;
+        }
+    }
+
+    .p-panelmenu-content {
+        .p-menuitem {
+            .p-menuitem-link {
+                border: $menuitemBorder;
+
+                &:focus {
+                    border-color: $menuitemFocusBorderColor;
+                }
+            }
+        }
+    }
+}

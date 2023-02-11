@@ -1,0 +1,158 @@
+.help-page {
+    p {
+        margin: 0;
+    }
+
+    .help-search {
+        background: $helpHeaderBg;
+        backdrop-filter: blur(200px);
+        padding: 0;
+        margin-bottom: 4rem;
+
+        .help-search-content {
+            padding: 50px 60px;
+        }
+
+        .help-search-effect {
+            background: $bodyImage;
+            background-repeat: no-repeat;
+            transform:  matrix(-1, 0, 0, 1, 0, 0);
+        }
+
+        .search-container {
+            font-size: 1.5rem;
+            position: relative;
+
+            input {
+                appearance: none;
+                text-indent: 2.5rem;
+                width: 100%;
+
+                &::placeholder {
+                    color: $textThirdColor;
+                }
+            }
+
+            i {
+                color: $textColor;
+                width: 2rem;
+                position: absolute;
+                margin-left: 1rem;
+                top: 50%;
+                margin-top: -.5rem;
+            }
+        }
+    }
+
+    .status-card {
+        margin-top: 30px;
+
+        h6 {
+            margin-bottom: 0;
+        }
+
+        p {
+            color: $textThirdColor;
+        }
+
+        .status-bars {
+            margin-top: 1rem;
+            @include flex();
+
+            .status-bar {
+                flex: 1 1 0;
+                -ms-flex: 1 1 0px;
+                background: #0BD18A;
+                box-shadow: 0px 0px 10px rgba(11, 209, 138, 0.3);
+                height: 50px;
+                margin-right: .25rem;
+                transition: transform $transitionDuration;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+
+                &.status-bar-failure {
+                    background: #FC6161;
+                    box-shadow: 0px 0px 10px rgba(252, 97, 97, 0.3);
+                }
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+        }
+
+        .status-bar-footer {
+            padding: 1rem 0 0 0;
+            @include flex();
+            @include flex-justify-between();
+            color: $textThirdColor;
+        }
+    }
+
+    .articles-card {
+        h6 {
+            margin-bottom: 0;
+        }
+
+        p {
+            color: $textThirdColor;
+        }
+
+        .blog-post {
+            height: 130px;
+            border-radius: 8px;
+            margin: 1rem 0;
+            position: relative;
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            &:last-child {
+                margin-bottom: 1rem;
+            }
+
+            .blog-text {
+                position: absolute;
+                left: 74px;
+                bottom: 12px;
+                color: #FFFFFF;
+
+                h6 {
+                    margin-bottom: 0;
+                    line-height: 20px;
+                }
+
+                span {
+                    line-height: 16px;
+                    font-size: 12px;
+                }
+            }
+
+            .blog-profile {
+                position: absolute;
+                top: 68px;
+                left: 12px;
+
+                img {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+
+                }
+            }
+
+            &:nth-child(1) {
+                background-image: linear-gradient(180deg, rgba(28, 28, 44, 0) 33.85%, rgba(27, 27, 44, 0.8) 80.77%), url("../../../layout/images/pages/help/blog1.jpg");
+            }
+
+            &:nth-child(2) {
+                background-image: linear-gradient(186.73deg, rgba(28, 28, 44, 0) 46.89%, rgba(27, 27, 44, 0.8) 95.1%), url("../../../layout/images/pages/help/blog2.jpg");
+            }
+
+            &:nth-child(3) {
+                background-image: linear-gradient(180deg, rgba(28, 28, 44, 0) 33.85%, rgba(27, 27, 44, 0.8) 80.77%), url("../../../layout/images/pages/help/blog3.jpg");
+            }
+        }
+    }
+}

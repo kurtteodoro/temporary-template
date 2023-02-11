@@ -1,0 +1,38 @@
+//orderlist
+.p-orderlist {
+    .p-orderlist-list-container {
+        background: $orderlistBg;
+        box-shadow: $orderlistShadow;
+        border-radius: $orderlistBorderRadius;
+    }
+
+    .p-orderlist-header {
+        border: $orderlistBorder;
+        border-width: $orderlistBorderWidth;
+        padding: $orderlistHeaderPadding;
+    }
+
+
+    .p-orderlist-filter-container {
+        border: $orderlistBorder;
+        border-width: $orderlistBorderWidth;
+    }
+
+    .p-orderlist-list {
+        border: $orderlistBorder;
+        border-width: $orderlistBorderWidth;
+        padding: $orderlistListPadding;
+
+        .p-orderlist-item {
+            padding: $orderlistListItemPadding;
+            border-radius: $borderRadius;
+            border: $orderlistListItemBorder;
+
+            &.p-highlight {
+                color: $textColor;
+                background: $orderlistListItemActiveBg;
+                border-color: $orderlistListItemActiveBorderColor;
+            }
+        }
+    }
+}

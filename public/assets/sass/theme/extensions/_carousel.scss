@@ -1,0 +1,13 @@
+//carousel
+.p-carousel {
+    .p-carousel-indicators {
+        .p-carousel-indicator {
+            &.p-highlight {
+                button {
+                    background: $carouselIndicatorActiveBg;
+                    color: $carouselIndicatorActiveTextColor;
+                }
+            }
+        }
+    }
+}

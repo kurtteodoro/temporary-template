@@ -1,0 +1,186 @@
+@media (min-width: $tabletBreakpoint + 1) {
+    .layout-wrapper {
+        &.layout-horizontal {
+            .layout-menu-wrapper {
+                display: none;
+            }
+
+            .layout-topbar{
+                .layout-topbar-left {
+                    display: flex;
+
+                    .menu-button-wrapper {
+                        .menu-button {
+                            display: none;
+                        }
+                    }
+                }
+
+                .layout-topbar-right {
+                    display: inline-block;
+
+                    .layout-topbar-actions {
+                        > li {
+                            &.active-topmenuitem {
+                                &.search-item {
+                                    a, button {
+                                        display: block;
+                                    }
+                                    >.search-input-wrapper{
+                                        display: none;
+                                    }
+                                    > ul {
+                                        display: block;
+                                        padding: 0;
+                                        @include border-radius(12px);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .layout-menu-wrapper {
+                    position: static;
+                    display: block;
+                    z-index: auto;
+                    width: auto;
+                    height: auto;
+                    overflow: visible;
+                    -moz-transition: none;
+                    -o-transition: none;
+                    -webkit-transition: none;
+                    transition: none;
+                    -webkit-box-shadow: none;
+                    -moz-box-shadow: none;
+                    box-shadow: none;
+                    -webkit-box-flex: 1;
+                    -ms-flex-positive: 1;
+                    flex-grow: 1;
+                    -ms-flex-preferred-size: 0;
+                    flex-basis: 0;
+
+                    .menu-logo {
+                        display: none;
+                    }
+    
+                    .layout-menu-container {
+                        overflow: visible;
+                        padding-bottom: 0;
+    
+                        .layout-menu {
+                            padding: 0 3rem;
+                            overflow: visible;
+    
+                            li {
+                                &.active-menuitem {
+                                    > a, button {
+                                        i.layout-submenu-toggler {
+                                            @include rotate(-180deg);
+                                        }
+                                    }
+                                }
+                            }
+    
+                            > li {
+                                padding: 0;
+                                margin: 0 8px;
+                                display: inline-block;
+                                position: relative;
+    
+                                a, button {
+                                    margin: 0px;
+                                    padding: .75rem;
+                                    user-select: none;
+                                    cursor: pointer;
+                                    border-radius: 6px;
+                                    @include flex();
+                                    @include flex-align-center();
+                                    @include transition(all $transitionDuration);
+    
+                                    > span {
+                                        margin: 0 8px;
+                                        line-height: 14px;
+                                        visibility: visible;
+                                    }
+    
+                                    > i {
+                                        font-size: 14px;
+                                        &.layout-submenu-toggler {
+                                            @include transition(transform $transitionDuration);
+                                            margin-left: auto;
+                                            font-size:12px ;
+                                            visibility: visible;
+                                        }
+                                    }
+                                }
+    
+                                &.layout-root-menuitem {
+                                    > div {
+                                        display: none;
+                                    }
+    
+                                    > li {
+                                        &.layout-root-menuitem {
+                                            > ul {
+                                                transition: none;
+                                            }
+                                        }
+                                    }
+    
+                                    > ul {
+                                        &.layout-menu-enter-from{
+                                            opacity: 0;
+                                            transform: none;
+                                        }
+        
+                                        &.layout-menu-leave-to {
+                                            opacity: 0;
+                                        }
+        
+                                        &.layout-menu-leave-active,
+                                        &.layout-menu-enter-active {
+                                            transition: none;
+                                        }
+                                    }
+                                }
+    
+                                > ul {
+                                    list-style-type: none;
+                                    width: 230px;
+                                    position: absolute;
+                                    padding: 10px;
+                                    margin: 0;
+                                    z-index: 100;
+                                    max-height: 460px;
+                                    border-radius: $borderRadius;
+                                    overflow: auto;
+    
+                                    > li {
+                                        border: 0 none;
+                                        margin: 0;
+                                        @include nested-submenu-indents(8, 2, 8);
+    
+                                        ul {
+                                            list-style-type: none;
+                                            padding: 0;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .logo {
+                    display: block;
+                }
+    
+                .app-name {
+                    display: block;
+                }
+            }
+
+        }
+    }
+}

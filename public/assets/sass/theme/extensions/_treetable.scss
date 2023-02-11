@@ -1,0 +1,35 @@
+//treetable
+.p-treetable {
+    .p-column-filter-menu-button {
+        color: $tableHeaderTextColor;
+    }
+
+    .p-sortable-column {
+        border-radius: $borderRadius;
+
+        &:focus {
+            box-shadow: none;
+            outline: 0 none;
+        }
+    }
+
+    .p-treetable-tbody {
+        > tr {
+            > td {
+                &:first-child {
+                    border-top-left-radius: $borderRadius;
+                    border-bottom-left-radius: $borderRadius;
+                }
+                &:last-child {
+                    border-top-right-radius: $borderRadius;
+                    border-bottom-right-radius: $borderRadius;
+                }
+            }
+
+            &.p-highlight {
+                background: $tableBodyRowHighlightBg;
+                color: $tableBodyRowHighlightTextColor;
+            }
+        }
+    }
+}

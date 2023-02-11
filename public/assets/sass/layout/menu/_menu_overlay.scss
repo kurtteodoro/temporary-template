@@ -1,0 +1,80 @@
+@media (min-width: $tabletBreakpoint + 1) {
+    .layout-wrapper {
+        &.layout-overlay {
+            .layout-menu-wrapper {
+                position: fixed;
+                mix-blend-mode: normal;
+                transform: translate3d(-$menuWidth, 0px, 0px);
+                transition: transform $animationDuration $animationTimingFunction;
+
+                .layout-menu-container {
+                    .layout-menu {
+                        padding: 0 1.5rem;
+
+                        li {
+                            &.layout-root-menuitem {
+                                > div {
+                                    display: none;
+                                }
+                            }
+
+                            ul {
+                                li {
+                                    padding-top: 6px;
+                                }
+                            }
+                        }
+
+                        > li {
+                            padding: 6px;
+
+                            > a {
+                                padding: .75rem 1rem;
+                            }
+                        }
+
+                        .layout-menu-enter-active {
+                            transition: max-height 0.45s ease-in-out;
+                        }
+                    }
+                }
+            }
+
+            &.layout-overlay {
+                .layout-topbar {
+                    .layout-topbar-left {
+                        display: flex;
+
+                        .logo {
+                            display: inline;
+                        }
+        
+                        .app-name {
+                            display: inline;
+                        }
+        
+                        .topbar-menu-button {
+                            display: inline;
+                        }
+                    }
+
+                    .layout-topbar-right {
+                        display: inline;
+                    }
+                }
+            }
+
+            &.layout-overlay-active {
+                .layout-menu-wrapper {
+                    transform: translate3d(0px, 0px, 0px);
+
+                    .menu-pin {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+    }
+}

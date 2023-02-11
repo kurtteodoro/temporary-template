@@ -1,0 +1,14 @@
+//menubar
+.p-menubar {
+    .p-submenu-list {
+        border-radius: $borderRadius;
+    }
+
+    .p-menuitem-link {
+        border: $menuitemBorder;
+
+        &:focus {
+            border-color: $menuitemFocusBorderColor;
+        }
+    }
+}

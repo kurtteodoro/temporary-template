@@ -1,0 +1,18 @@
+//megamenu
+.p-megamenu {
+    .p-megamenu-panel {
+        border-radius: $borderRadius;
+
+        .p-megamenu-submenu-header {
+            font-size: $submenuHeaderFontSize;
+        }
+    }
+
+    .p-menuitem-link {
+        border: $menuitemBorder;
+
+        &:focus {
+            border-color: $menuitemFocusBorderColor;
+        }
+    }
+}

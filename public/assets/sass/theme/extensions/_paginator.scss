@@ -1,0 +1,19 @@
+//paginator
+.p-paginator {
+    .p-paginator-pages {
+        .p-paginator-page {
+            &.p-highlight {
+                background: $paginatorElementActiveBg;
+                border-color: $paginatorElementActiveBorderColor;
+                color: $paginatorElementIconActiveColor;
+            }
+        }
+    }
+
+    .p-dropdown {
+        .p-dropdown-label {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    }
+}

@@ -1,0 +1,84 @@
+//datatable
+.p-datatable {
+    .p-column-filter-menu-button {
+        color: $tableHeaderTextColor;
+    }
+
+    .p-sortable-column {
+        border-radius: $borderRadius;
+
+        &:focus {
+            box-shadow: none;
+            outline: 0 none;
+        }
+    }
+
+    .p-datatable-tbody {
+        > tr {
+            &.p-highlight {
+                background: $tableBodyRowHighlightBg;
+                color: $tableBodyRowHighlightTextColor;
+            }
+        }
+    }
+
+    &.p-datatable-striped {
+        .p-datatable-header {
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+
+        .p-sortable-column {
+            border-radius: 0;
+        }
+
+        .p-datatable-tbody {
+            > tr {
+                > td {
+                    &:first-child {
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+                    }
+
+                    &:last-child {
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                    }
+                }
+            }
+
+            > tr:nth-child(even) {
+                &.p-highlight {
+                    background: $tableBodyRowHighlightBg;
+                    color: $tableBodyRowHighlightTextColor;
+
+                    .p-row-toggler {
+                        color: $tableBodyRowHighlightTextColor;
+
+                        &:hover {
+                            color: $tableBodyRowHighlightTextColor;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.p-datatable-scrollable {
+        .p-datatable-thead {
+            th {
+                background: $solidSurfaceColor;
+            }
+        }
+
+        .p-datatable-tbody {
+            .p-frozen-column {
+                background: $solidSurfaceColor;
+            }
+
+            .p-rowgroup-header {
+                background: $solidSurfaceColor;   
+            }
+        }
+    }
+}

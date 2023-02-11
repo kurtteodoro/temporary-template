@@ -1,0 +1,99 @@
+//buttons
+.p-button:not(.p-button-outlined, .p-button-text, .p-button-link, .p-togglebutton) {
+    box-shadow: $buttonShadow;
+}
+
+.p-buttonset .p-button {
+    box-shadow: $selectbuttonShadow;
+}
+
+.p-button.p-button-secondary, .p-buttonset.p-button-secondary > .p-button, .p-splitbutton.p-button-secondary > .p-button {
+    box-shadow: $secondaryButtonShadow;
+
+    &.p-button-outlined {
+        background-color: $secondaryButtonBg;
+        color: $secondaryButtonTextColor;
+
+        &:enabled:hover {
+            background: rgba($secondaryButtonBg, $textButtonHoverBgOpacity);
+            color: $secondaryButtonTextColor;
+        }
+
+        &:enabled:active {
+            background: rgba($secondaryButtonBg, $textButtonActiveBgOpacity);
+            color: $secondaryButtonTextColor;
+        }
+    }
+
+    &.p-button-text {
+        color: $secondaryButtonTextColor;
+
+        &:enabled:hover {
+            color: $secondaryButtonTextColor;
+        }
+
+        &:enabled:active {
+            color: $secondaryButtonTextColor;
+        }
+    }
+}
+
+.p-button.p-button-info, .p-buttonset.p-button-info > .p-button, .p-splitbutton.p-button-info > .p-button {
+    box-shadow: $infoButtonShadow;
+
+    &.p-button-outlined {
+        box-shadow: none;
+    }
+
+    &.p-button-text {
+        box-shadow: none;
+    }
+}
+
+.p-button.p-button-success, .p-buttonset.p-button-success > .p-button, .p-splitbutton.p-button-success > .p-button {
+    box-shadow: $successButtonShadow;
+
+    &.p-button-outlined {
+        box-shadow: none;
+    }
+
+    &.p-button-text {
+        box-shadow: none;
+    }
+}
+
+.p-button.p-button-warning, .p-buttonset.p-button-warning > .p-button, .p-splitbutton.p-button-warning > .p-button {
+    box-shadow: $warningButtonShadow;
+
+    &.p-button-outlined {
+        box-shadow: none;
+    }
+
+    &.p-button-text {
+        box-shadow: none;
+    }
+}
+
+.p-button.p-button-help, .p-buttonset.p-button-help > .p-button, .p-splitbutton.p-button-help > .p-button {
+    box-shadow: $helpButtonShadow;
+
+    &.p-button-outlined {
+        box-shadow: none;
+    }
+
+    &.p-button-text {
+        box-shadow: none;
+    }
+}
+
+.p-button.p-button-danger, .p-buttonset.p-button-danger > .p-button, .p-splitbutton.p-button-danger > .p-button {
+    box-shadow: $dangerButtonShadow;
+
+    &.p-button-outlined {
+        box-shadow: none;
+    }
+
+    &.p-button-text {
+        box-shadow: none;
+    }
+}

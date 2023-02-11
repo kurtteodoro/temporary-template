@@ -1,0 +1,111 @@
+.layout-breadcrumb-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: transparent;
+    padding-top: 30px;
+
+    .layout-breadcrumb {
+        background: transparent;
+        border: 0 none;
+        border-radius: 0;
+        padding: 7px 0 7px 30px;
+
+
+        ul {
+            li {
+                &.p-breadcrumb-chevron {
+                    margin: 0 .75rem;
+
+                    &::before {
+                        content: "\2044";
+                        font-weight: bold;
+                        font-size: 1.25rem;
+                    }
+                }
+
+                .p-menuitem-link {
+                    font-size: 1.25rem;
+
+                    .p-menuitem-text {
+                        color: $textThirdColor;
+                    }
+                }
+
+                &:last-child {
+                    .p-menuitem-text {
+                        color: $textColor;
+                    }
+                }
+            }
+        }
+    }
+
+    .layout-breadcrumb-left-items {
+        display: flex;
+        align-items: center;
+    }
+
+    .layout-breadcrumb-right-items {
+        display: flex;
+
+        .search-icon {
+            display:none;
+            align-items: center;
+            justify-content: center;
+            color: $textColor;
+            width: 32px;
+            height: 32px;
+            margin-right: .5rem;
+        }
+
+        .search-wrapper {
+            transition: transform $animationDuration $animationTimingFunction;
+
+            .p-input-icon-left {
+                margin-right: .5rem;
+                width: 100%;
+
+                input {
+                    background: transparent;
+                    border-color: transparent;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $tabletBreakpoint) {
+    .layout-breadcrumb-container {
+        .layout-breadcrumb-right-items {
+            .search-icon {
+                display:flex;
+            }
+            .search-wrapper {
+                width: 0;
+                position: absolute;
+                right: 40px;
+                background: $topbarSubmenuBg;
+                border-radius: 6px;
+                transition: width $animationDuration $animationTimingFunction;
+
+                input {
+                    width: 0;
+                }
+
+                i {
+                    color: transparent;
+                }
+
+                &.active-search-wrapper {
+                    width: calc(100% - 70px);
+                    transition: width $animationDuration $animationTimingFunction;
+
+                    input {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

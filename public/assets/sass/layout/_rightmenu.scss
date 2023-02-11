@@ -1,0 +1,147 @@
+.layout-rightmenu-button-desktop {
+    display: inline;
+}
+
+.layout-rightmenu-button-mobile {
+    display: none;
+}
+.layout-rightmenu-button {
+    background: linear-gradient(271.89deg, rgba(70,82,104,1), rgba(115,130,161,1));
+    border-radius: 6px 0px 0px 6px;
+    border-color: transparent;
+    border-left: 0 none;
+
+    &:enabled:hover {
+        background: linear-gradient(271.89deg, rgba(70,82,104,0.5), rgba(115,130,161,0.5));
+        border-color: transparent;
+    }
+}
+
+.layout-rightmenu {
+    height: 100%;
+    width: $rightMenuWidth;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1000;
+    padding: 32px 16px;
+    border-radius: 40px 0px 0px 40px;
+    background: $rightMenuBg;
+    transform: translateX(100%);
+    transition: transform $animationDuration $animationTimingFunction;
+
+    &.layout-rightmenu-active {
+        transform: translateX(0);
+    }
+
+    .layout-rightmenu-close {
+        width: 32px;
+        height: 32px;
+        background-color: $rightMenuButtonBg;
+        color: $textColor;
+        position: absolute;
+        right: 18px;
+        text-align: center;
+        padding: 9px;
+        border-radius: 6px;
+    }
+
+    .user-detail-wrapper {
+        text-align: center;
+        padding: 4.5rem 0 2rem 0;
+
+        .user-name {
+            font-size: 20px;
+            color: $textColor;
+            text-align: center;
+            display: block;
+            margin-top: 1.25rem;
+            margin-bottom: .25rem;
+        }
+    }
+
+    .user-tasks {
+        display: flex;
+        justify-content: space-between;
+        padding: 1.5rem 1rem;
+        border-bottom: 1px solid $dividerColor;
+
+        .user-tasks-item {
+            font-weight: 500;
+
+            &.in-progress {
+                .task-number {
+                    color: #FC6161;
+                }
+            }
+
+            .task-number {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: $rightMenuButtonBg;
+                color: $textColor;
+                text-align: center;
+                padding: 9px;
+                border-radius: 6px;
+                width: 50px;
+                height: 50px;
+                font-size: 30px;
+            }
+
+            .task-name {
+                display: block;
+                color: $textColor;
+                margin-top: .75rem;
+            }
+        }
+    }
+
+    .p-datepicker {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .daily-plan-wrapper {
+        margin-top: 2rem;
+        color: $textColor;
+
+        ul {
+            margin: 0;
+            padding: 0;
+            outline: 0;
+            overflow: hidden;
+            list-style-type: none;
+
+            li {
+                margin-top: 8px;
+                border-radius: 6px;
+                background: $rightMenuListItemBg;
+                padding: 8px 12px;
+
+                span {
+                    display: block;
+                    line-height: 20px;
+                    color: $textColor;
+
+                    &.event-time {
+                        font-weight: 600;
+                        color: $textThirdColor;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: $tabletBreakpoint) {    
+    .layout-rightmenu-button-desktop {
+        display: none;
+    }
+    
+    .layout-rightmenu-button-mobile {
+        display: inline;
+    }
+}

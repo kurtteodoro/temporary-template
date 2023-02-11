@@ -1,0 +1,25 @@
+.p-galleria {
+    .p-galleria-indicators {
+        .p-galleria-indicator {
+            &.p-highlight {
+                button {
+                    background: $galleriaIndicatorActiveBg;
+                    color: $galleriaIndicatorActiveTextColor;
+                }
+            }
+        }
+    }
+
+    &.p-galleria-indicator-onitem {
+        .p-galleria-indicators {
+            .p-galleria-indicator {
+                &.p-highlight {
+                    button {
+                        background: $galleriaIndicatorActiveBg;
+                        color: $galleriaIndicatorActiveTextColor;
+                    }
+                }
+            }
+        }
+    }
+}

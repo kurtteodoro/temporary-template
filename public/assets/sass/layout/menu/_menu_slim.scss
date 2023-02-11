@@ -1,0 +1,167 @@
+@media (min-width: $tabletBreakpoint + 1) {
+    .layout-wrapper {
+        &.layout-slim {
+            .layout-menu-wrapper {
+                height: 100%;
+                position: fixed;
+                width: $slimMenuWidth;
+                padding: 0;
+
+                .menu-logo {
+                    .app-name {
+                        display: none;
+                    }
+                }
+
+                .layout-menu-container {
+                    overflow: visible;
+                }
+
+                .layout-menu {
+                    overflow: visible;
+                    padding-right: 0;
+
+                    > li {
+                        position: relative;
+                        padding: 5px 0 5px 12px;
+
+                        .layout-menuitem-root-text {
+                            display: none;
+                        }
+
+                        > a {
+                            margin: 0px;
+                            padding: 8px;
+                            width: 40px;
+                            height: 40px;
+                            @include border-radius(12px);
+                            @include flex();
+                            @include flex-align-center();
+                            @include flex-justify-center();
+                            @include transition(all $transitionDuration);
+                            position: relative;
+                            border: none;
+
+                            &:before {
+                                display: none;
+                            }
+
+                            span {
+                                display: none;
+                            }
+
+                            i {
+                                margin-right: 0;
+                                font-size: 1.5rem;
+
+                                &.layout-submenu-toggler {
+                                    display: none;
+                                }
+                            }
+
+                            .menuitem-badge {
+                                display: none;
+                                margin-left: auto;
+                            }
+
+                            &:hover + .layout-menu-tooltip {
+                                display: block;
+                            }
+                        }
+
+                        > ul {
+                            position: absolute;
+                            top: 0;
+                            left: 60px;
+                            min-width: 250px;
+                            max-height: 450px;
+                            padding: 4px;
+                            overflow: auto;
+                            margin-top: 5px;
+                            border-radius: 8px;
+
+                            li {
+                                margin: 0;
+
+                                > a {
+                                    padding: 6px 8px;
+                                    min-height: 32px;
+
+                                    .layout-menuitem-text {
+                                        margin-left: .5rem;
+                                    }
+
+                                    > span {
+                                        visibility: visible;
+                                    }
+
+                                    > i {
+                                        &.layout-submenu-toggler {
+                                            visibility: visible;
+                                        }
+                                    }
+                                }
+                                @include nested-submenu-indents(8, 2, 8);
+                            }
+
+                        }
+
+                        &.layout-root-menuitem {
+                            > ul {
+                                &.layout-menu-enter-from{
+                                    opacity: 0;
+                                    transform: none;
+                                }
+
+                                &.layout-menu-leave-to {
+                                    opacity: 0;
+                                }
+
+                                &.layout-menu-leave-active,
+                                &.layout-menu-enter-active {
+                                    transition: none;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .layout-inline-menu {
+                    .layout-inline-menu-action {
+                        .layout-inline-menu-text,
+                        .layout-inline-menu-icon {
+                            display: none !important;
+                        }
+                    }
+
+                    .layout-inline-menu-action-panel {
+                        padding: 0 .5rem;
+                        padding-left: 1.5rem;
+
+                        .layout-inline-menu-action-item {
+                            padding: 5px 12px 5px 12px;
+
+                            a, button {
+                                width: 100%;
+                                border-left: 0 none;
+                                padding: 8px;
+
+                                span {
+                                    display: none !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .layout-main {
+                margin-left: 5.857rem;
+
+                .layout-topbar {
+                    display: none;
+                }
+            }
+        }
+    }
+}

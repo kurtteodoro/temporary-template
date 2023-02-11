@@ -1,0 +1,16 @@
+.layout-dashboard {
+    .widget-table {
+        .card-header {
+            line-height: 24px;
+            margin-bottom: 1rem;
+        }
+
+        .p-datatable {
+            .p-button {
+                .p-button-icon {
+                    color: $textColor;
+                }
+            }
+        }
+    }
+}

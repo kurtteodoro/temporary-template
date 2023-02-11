@@ -1,0 +1,19 @@
+//sidebar
+.p-sidebar {
+    &.p-sidebar-full {
+        border-radius: 0;
+    }
+
+    &.p-sidebar-top {
+        border-radius: 0 0 40px 40px;
+    }
+    &.p-sidebar-left {
+        border-radius: 0 40px 40px 0;
+    }
+    &.p-sidebar-right {
+        border-radius: 40px 0 0 40px;
+    }
+    &.p-sidebar-bottom {
+        border-radius: 40px 40px 0 0;
+    }
+}

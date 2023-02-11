@@ -1,0 +1,36 @@
+//tree
+.p-tree {
+    .p-tree-container {
+        .p-treenode {
+            .p-treenode-content {
+                &.p-highlight {
+                    background: $tableBodyRowHighlightBg;
+                    color: $tableBodyRowHighlightTextColor;
+
+                    .p-tree-toggler,
+                    .p-treenode-icon {
+                        color: $tableBodyRowHighlightTextColor;
+
+                        &:hover {
+                            color: $tableBodyRowHighlightTextColor;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    &.p-tree-horizontal {
+        .p-treenode {
+            .p-treenode-content {
+                background: $solidSurfaceColor;
+
+                &.p-treenode-selectable:not(.p-highlight):hover {
+                    background-color: $solidSurfaceColor;
+                    color: inherit;
+                }
+            }
+        }
+    }
+}

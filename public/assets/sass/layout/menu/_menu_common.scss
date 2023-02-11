@@ -1,0 +1,244 @@
+.layout-menu-wrapper {
+    position: fixed;
+    height: 100%;
+    width: $menuWidth;
+    left: 0;
+    top: 0;
+    z-index: 997;
+    transform: none;
+    border-radius: 0px 40px 40px 0px;
+    display: flex;
+    flex-direction: column;
+
+    .menu-logo {
+        @include flex();
+        @include flex-justify-start();
+        @include flex-align-center();
+        padding: 25px 22px 0 34px;
+
+        .menu-pin {
+            display: none;
+            width: 32px;
+            height: 32px;
+            margin-left: auto;
+            border-radius: 6px;
+            @include transition(all $transitionDuration);
+
+            > span {
+                font-size: 1.25rem;
+            }
+        }
+
+        .logo {
+            img {
+                height: 2.5rem;
+                border: 0 none;
+            }
+        }
+
+        .app-name {
+            img {
+                height: 1.714rem;
+                padding-left: 16px;
+            }
+        }
+    }
+
+    ul {
+        @include reset-list;
+    }
+
+    .layout-menu-container {
+        height: 100%;
+        overflow: auto;
+        padding-bottom: 2rem;
+
+        .layout-menu {
+            padding: 0 1.5rem;
+
+            li {
+                border-radius: 8px;
+
+                &.layout-root-menuitem {
+                    > div {
+                        padding-left: 1.5rem;
+                        margin-bottom: .5rem;
+                        font-size: 12px;
+
+                        > .layout-menuitem-text {
+                            font-size: .857rem;
+                            font-weight: 600;
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+
+                > a {
+                    display: flex;
+                    align-items: center;
+                    padding: .5rem 1rem;
+                    cursor: pointer;
+                    user-select: none;
+                    border-radius: 8px;
+                    transition: background-color $transitionDuration, color $transitionDuration;
+
+                    .layout-menuitem-text {
+                        margin-left: 1rem;
+                    }
+
+                    .layout-submenu-toggler {
+                        margin-left: auto;
+                    }
+
+                    &.rotated-icon {
+                        .layout-menuitem-icon {
+                            transform: rotate(90deg);
+                        }
+                    }
+                }
+
+                a {
+                    .p-badge {
+                        margin-left: auto !important;
+                    }
+                }
+
+                &.active-menuitem {
+                    > a {
+                        .layout-submenu-toggler {
+                            transition: all $transitionDuration;
+                            transform: rotate(-180deg);
+                        }
+                    }
+                }
+
+                > ul {
+                    padding: 0;
+
+                    li {
+                        ul {
+                            padding: 0 0 .25rem;
+                            overflow: hidden;
+                        }
+                    }
+
+                    > li {
+                        margin-top: .2rem;
+
+                        &.layout-root-menuitem {
+                            > a {
+                                display: flex;
+                            }
+                        }
+
+                        @include nested-submenu-indents(8, 2, 8);
+                    }
+                }
+            }
+
+            > li {
+                &:first-child {
+                    margin-top: 2rem;
+                }
+            }
+
+            .layout-menu-enter-from,
+            .layout-menu-leave-to {
+                max-height: 0;
+            }
+                
+            .layout-menu-enter-to,
+            .layout-menu-leave-from {
+                max-height: 1000px;
+            }
+                
+            .layout-menu-enter-active {
+                overflow: hidden;
+                transition: max-height 0.45s ease-in-out;
+            }
+                
+            .layout-menu-leave-active {
+                overflow: hidden;
+                transition: max-height 0.45s cubic-bezier(0, 1, 0, 1);
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $tabletBreakpoint) {
+    .layout-wrapper {
+        .layout-menu-wrapper {
+            mix-blend-mode: normal;
+            transform: translateX(-100%);
+            transition: transform $animationDuration $animationTimingFunction;
+
+            .layout-menu {
+                padding: 0 1.5rem;
+                overflow: auto;
+
+                li {
+                    &.layout-root-menuitem {
+                        > div {
+                            display: none;
+                        }
+                    }
+
+                    ul {
+                        li {
+                            padding-top: 6px;
+                        }
+
+                        ul {
+                            li {
+                                a {
+                                    padding-right: 11px;
+                                }
+                            }
+                        }
+                    }
+
+                    > ul {
+                        li {
+                            padding-left: 0.3rem;
+                            padding-right: 0.2rem;
+                        }
+                    }
+                }
+
+                > li {
+                    padding: 6px;
+
+                    > a {
+                        padding: .75rem 1.25rem;
+                    }
+                }
+            }
+        }
+
+        &.layout-mobile-active {
+            .layout-menu-wrapper {
+                transform: translateX(0);
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $tabletBreakpoint) {
+    .layout-wrapper {
+        &.layout-slim {
+            .layout-topbar {
+                .layout-menu-wrapper {
+                    .menu-logo {
+                        .logo {
+                            display: inline;
+                        }
+                        
+                        .app-name {
+                            display: inline;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,427 @@
+.layout-menu-wrapper {
+    .menu-logo {
+        .menu-pin {
+            background: $menuIconBg;
+            color: $menuIconTextColor;
+
+            &:hover {
+                background: $menuIconHoverBg;
+                color: $menuIconHoverTextColor;
+            }
+        }
+    }
+
+    .layout-inline-menu {
+        &.layout-inline-menu-active {
+            .layout-inline-menu-action {
+                img {
+                    border-color: $primaryColor;
+                    filter: drop-shadow(0px 0px 10px rgba($primaryColor, 0.3));
+                }
+
+                &:hover {
+                    img {
+                        border-color: $primaryColor;
+                        filter: drop-shadow(0px 0px 10px rgba($primaryColor, 0.3));
+                    }
+                }
+            }
+        }
+
+        .layout-inline-menu-action {
+            &:hover {
+                img {
+                    border-color: $inlineMenuImageHoverBorderColor;
+                    filter: drop-shadow(0px 0px 10px rgba(15, 139, 253, 0.3));
+                }
+            }
+        }
+
+        .layout-inline-menu-action-panel {
+            .layout-inline-menu-action-item {
+                a, button {
+                    color: $textColor;
+
+                    &:hover {
+                        background-color: $submenuItemHoverBg;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin extrenalSubmenuitem {
+    li {
+        > a {
+            color: $submenuItemTextColor;
+
+            &:hover {
+                background-color: $submenuItemHoverBg;
+                color: $submenuItemHoverTextColor;
+            }
+        }
+
+        &.active-menuitem {
+            > a {
+                color: $activeRootMenuItemTextColor;
+            }
+        }
+    }
+}
+
+@mixin internalSubmenu {
+    .layout-menu-container {
+        .layout-menu {
+            > li {
+                > a {
+                    color: $rootMenuItemTextColor;
+
+                    &:hover {
+                        color: $activeRootMenuItemTextColor;
+                    }
+                }
+
+                &.active-menuitem {
+                    > a {
+                        color: $activeRootMenuItemTextColor;
+
+                        &::before {
+                            background-color: $activeRootMenuItemTextColor;
+                        }
+                    }
+                }
+
+                > ul {
+                    > li {
+                        &.active-menuitem {
+                            background-color: $submenuItemHoverBg;
+
+                            > a {
+                                background-color: $submenuItemHoverBg;
+                                color: $submenuItemTextColor;
+                            }
+                        }
+                    }
+
+                    li {
+                        a {
+                            color: $submenuItemTextColor;
+
+                            &:hover {
+                                background-color: $submenuItemHoverBg;
+                            }
+                        }
+
+                        &.active-menuitem {
+                            > a {
+                                color: $submenuItemTextColor;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: $tabletBreakpoint + 1) {
+    .layout-wrapper {
+        &.layout-static {
+            .layout-menu-wrapper {
+                @include internalSubmenu;
+
+                .layout-menu-container {
+                    .layout-menu {
+                        > li {
+
+                            &.layout-root-menuitem {
+                                > div {
+                                    color: $rootMenuItemTextColor;
+                                }
+                            }
+
+                            ul {
+                                li {
+                                    &.active-menuitem {
+                                        > a {
+                                            border-left-color: $primaryColor;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        a {
+                            &.active-route {
+                                font-weight: bold;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &.layout-overlay, &.layout-sidebar {
+            .layout-menu-wrapper {
+                background: $menuBg;
+
+                .layout-menu-container {
+                    .layout-menu {
+                        li {
+                            a {
+                                color: $rootMenuItemTextColor;
+
+                                &:hover {
+                                    background-color: $rootMenuItemHoverBg;
+                                    color: $rootMenuItemHoverTextColor;
+                                }
+                            }
+
+                            &.active-menuitem {
+                                background: $overlayMenuActiveBg;
+
+                                > a {
+
+                                    &:hover {
+                                        background-color: $rootMenuItemHoverBg;
+                                        color: $rootMenuItemHoverTextColor;
+                                    }
+                                }
+
+                                ul {
+                                    li.active-menuitem {
+                                        background: unset;
+                                    }
+                                }
+                            }
+
+                            > ul {
+                                li {
+                                    > a {
+                                        color: $submenuItemTextColor;
+
+                                        &:hover {
+                                            background-color: $submenuItemHoverBg;
+                                            color: $submenuItemHoverTextColor;
+                                        }
+                                        &.active-route {
+                                            background-color: $overlayMenuItemActiveBg;
+                                            color: $overlayMenuItemActiveTextColor;
+
+                                            &:hover {
+                                                background-color: $overlayMenuItemActiveBg;
+                                                color: $overlayMenuItemActiveTextColor;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &.layout-horizontal {
+            .layout-menu-wrapper {
+                background-color: transparent;
+
+                .layout-menu-container {
+                    .layout-menu {
+                        > li {
+                            > a {
+                                color: $rootMenuItemTextColor;
+
+                                &:hover {
+                                    background-color: $rootMenuItemHoverBg;
+                                    color: $rootMenuItemHoverTextColor;
+                                }
+                            }
+
+                            &.active-menuitem {
+                                > a {
+                                    background-color: transparent;
+                                    color: $activeRootMenuItemTextColor;
+
+                                    i {
+                                        color: $primaryColor;
+                                    }
+
+                                    &:hover {
+                                        color: $primaryColor;
+                                    }
+                                }
+                            }
+
+                            > ul {
+                                @include extrenalSubmenuitem;
+                                background: $menuBg;
+
+                                li {
+                                    > a {
+                                        &.active-route {
+                                            color: $activeSubmenuItemTextColor;
+
+                                            &:hover {
+                                                color: $activeSubmenuItemTextColor;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &.layout-slim {
+            .layout-menu-wrapper {
+                background-color: transparent;
+
+                .layout-menu-container {
+                    .layout-menu {
+                        > li {
+                            &.active-menuitem {
+                                > a {
+                                    background-color: $slimActiveRootMenuItemBgColor;
+                                    color: $slimActiveRootMenuItemTextColor;
+
+                                    &:hover {
+                                        background-color: $slimActiveRootMenuItemBgColor;
+                                        color: $slimActiveRootMenuItemTextColor;
+                                    }
+                                }
+                            }
+
+                            > a {
+                                color: $slimRootMenuItemIconColor;
+
+                                &:hover {
+                                    background-color: $rootMenuItemHoverBg;
+                                }
+
+                                &.active-route {
+                                    background-color: $slimActiveRootMenuItemBgColor;
+                                    color: $slimActiveRootMenuItemTextColor;
+
+                                    &:hover {
+                                        background-color: $slimActiveRootMenuItemBgColor;
+                                        color: $slimActiveRootMenuItemTextColor;
+                                    }
+                                }
+                            }
+
+                            > ul {
+                                @include extrenalSubmenuitem;
+                                background: $menuBg;
+
+                                li {
+                                    a {
+                                        color: $slimMenuItemTextColor;
+
+                                        &:hover {
+                                            background-color: $submenuItemHoverBg;
+                                        }
+                                    }
+
+                                    &.active-menuitem {
+                                        > a {
+                                            color: $slimMenuItemTextColor;
+                                        }
+                                    }
+
+                                    > a {
+                                        &.active-route{
+                                            background-color: $slimActiveRootMenuItemBgColor;
+                                            color: $slimActiveRootMenuItemTextColor;
+
+                                            i {
+                                                color: $slimActiveRootMenuItemTextColor;
+                                            }
+
+                                            &:hover {
+                                                color: $slimActiveRootMenuItemTextColor;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                > li {
+                                    &.active-menuitem {
+                                        background-color: $submenuItemHoverBg;
+
+                                        > a {
+                                            background-color: $submenuItemHoverBg;
+                                            color: $slimMenuItemTextColor;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: $tabletBreakpoint) {
+    .layout-menu-wrapper {
+        background: $menuBg;
+
+        .layout-menu-container {
+            .layout-menu {
+                > li {
+                    > a {
+                        color: $rootMenuItemTextColor;
+
+                        &:hover {
+                            background-color: $rootMenuItemHoverBg;
+                            color: $rootMenuItemHoverTextColor;
+                        }
+                    }
+
+                    &.active-menuitem {
+                        background: $overlayMenuActiveBg;
+
+                        > a {
+                            color: $rootMenuItemTextColor;
+
+                            i {
+                                color: $rootMenuItemTextColor;
+                            }
+
+                            &:hover {
+                                background-color: $rootMenuItemHoverBg;
+                                color: $rootMenuItemHoverTextColor;
+                            }
+                        }
+                    }
+
+                    > ul {
+                        li {
+                            > a {
+                                color: $submenuItemTextColor;
+
+                                &:hover {
+                                    background-color: $submenuItemHoverBg;
+                                    color: $submenuItemHoverTextColor;
+                                }
+                                &.active-route {
+                                    background-color: $overlayMenuItemActiveBg;
+                                    color: $overlayMenuItemActiveTextColor;
+
+                                    &:hover {
+                                        color: $overlayMenuItemActiveTextColor;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
