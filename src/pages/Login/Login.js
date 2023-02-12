@@ -61,7 +61,8 @@ const Login = (props) => {
             localStorage.setItem("@usuario", JSON.stringify({
                 nome_completo: data.nome_completo,
                 usuario_id: data.usuario_id,
-                empresa_id: res.data.empresa_id
+                empresa_id: res.data.empresa_id,
+                seller_id: data.user_name
             }));
             setTimeout(() => {
                 window.location.reload();

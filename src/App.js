@@ -11,7 +11,7 @@ import AppMenu from './AppMenu';
 
 import Dashboard from "./pages/Dashboard";
 
-import PrimeReact from 'primereact/api';
+import PrimeReact, {addLocale} from 'primereact/api';
 import { Tooltip } from 'primereact/tooltip';
 
 import 'primereact/resources/primereact.min.css';
@@ -306,7 +306,18 @@ const App = (props) => {
         'p-ripple-disabled': !ripple
     });
 
-    const [logado] = useState(localStorage.getItem('@token') ? true : false)
+    const [logado] = useState(localStorage.getItem('@token') ? true : false);
+
+    addLocale('pt_BR', {
+        firstDayOfWeek: 1,
+        dayNames: ['Janeiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto'],
+        dayNamesShort: ['dom', 'seg', 'ter', 'que', 'qui', 'sex', 'sáb'],
+        dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Novembro', 'Desembro'],
+        monthNamesShort: ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'],
+        today: 'Hoje',
+        clear: 'Limpar',
+    });
 
     if(logado)
         return (
