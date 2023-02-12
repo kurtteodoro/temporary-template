@@ -23,6 +23,7 @@ import Login from "./pages/Login/Login";
 import {NotFound} from "./pages/NotFound";
 import Vendas from "./pages/Vendas/Vendas";
 import Remessas from "./pages/Remessas/Remessas";
+import generateArrayMenu from './utilities/AuthorizationMenu';
 
 const App = (props) => {
     const [rightMenuActive, setRightMenuActive] = useState(false);
@@ -45,38 +46,9 @@ const App = (props) => {
 
     PrimeReact.ripple = true;
 
-    const menu = [
-        // {
-        //     label: 'Resumo',
-        //     icon: 'pi pi-chart-bar',
-        //     to: '/dashboard'
-        // },
-        {
-            label: 'Vendas',
-            icon: 'pi pi-shopping-cart',
-            to: '/'
-        },
-        {
-            label: 'Remessas',
-            icon: 'pi pi-shopping-bag',
-            to: '/remessas'
-        },
-        // {
-        //     label: 'Empresas',
-        //     icon: 'pi pi-th-large',
-        //     to: '/empresas'
-        // },
-        // {
-        //     label: 'Usuários empresa',
-        //     icon: 'pi pi-users',
-        //     to: '/usuarios-empresa'
-        // },
-        // {
-        //     label: 'Perfil de usuários',
-        //     icon: 'pi pi-id-card',
-        //     to: '/perfil-usuarios'
-        // },
-    ];
+    const menu = [];
+
+    const  [menuState, setMenuState] = useState(menu)
 
     const routes = [
         { label: 'Vendas' },
@@ -308,6 +280,10 @@ const App = (props) => {
 
     const [logado] = useState(localStorage.getItem('@token') ? true : false);
 
+    useState(()=>{
+        setMenuState(generateArrayMenu())
+    },[menuState])
+
     addLocale('pt_BR', {
         firstDayOfWeek: 1,
         dayNames: ['Janeiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto'],
@@ -325,7 +301,7 @@ const App = (props) => {
                 <Tooltip ref={copyTooltipRef} target=".block-action-copy" position="bottom" content="Copied to clipboard" event="focus" />
                 <div className="layout-main">
                     <AppTopbar
-                        items={menu}
+                        items={menuState}
                         menuMode={menuMode}
                         colorScheme={props.colorScheme}
                         menuActive={menuActive}
@@ -344,7 +320,7 @@ const App = (props) => {
                     />
 
                     <AppMenu
-                        model={menu}
+                        model={menuState}
                         onRootMenuItemClick={onRootMenuItemClick}
                         onMenuItemClick={onMenuItemClick}
                         onToggleMenu={onToggleMenu}
