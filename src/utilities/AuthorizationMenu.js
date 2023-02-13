@@ -10,6 +10,12 @@ const featuresAuthorizations  = [
       icon: 'pi pi-shopping-cart',
       to : '/remessas',
       authorizations :["ROLE_EDITAR_USUARIO","ROLE_EDITAR_USUARIO", "ROLE_EDITAR_USUARIO"]
+    },
+    {
+      label : "Cancelamento",
+      icon: 'pi pi-shopping-cart',
+      to : '/cancelamento',
+      authorizations :["ROLE_EDITAR_USUARIO","ROLE_EDITAR_USUARIO", "ROLE_EDITAR_USUARIO"]
     }
   ];
   

@@ -24,6 +24,7 @@ import {NotFound} from "./pages/NotFound";
 import Vendas from "./pages/Vendas/Vendas";
 import Remessas from "./pages/Remessas/Remessas";
 import generateArrayMenu from './utilities/AuthorizationMenu';
+import CancelamentoVenda from './pages/Cancelamento/CancelamentoVenda';
 
 const App = (props) => {
     const [rightMenuActive, setRightMenuActive] = useState(false);
@@ -53,6 +54,7 @@ const App = (props) => {
     const routes = [
         { label: 'Vendas' },
         { label: 'Remessas' },
+        { label: 'Cancelamento' },
     ];
 
     let rightMenuClick;
@@ -344,6 +346,7 @@ const App = (props) => {
                         <Routes>
                             <Route path="/" element={<Vendas />} />
                             <Route path="/remessas" exact="true" element={<Remessas />} />
+                            <Route path="/cancelamento" exact="true" element={<CancelamentoVenda />} />
                             <Route path="*" element={<NotFound />} />
                         </Routes>
                     </div>
