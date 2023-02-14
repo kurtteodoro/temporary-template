@@ -35,11 +35,26 @@ export const copiarParcelas = function(parcelas) {
                 desconto: parcela.desconto,
                 formaPgto: parcela.formaPgto,
                 id: parcela.id,
-                rateio: parcela.rateio,
                 texto: parcela.texto,
-                valor: parcela.valor
+                valor: parcela.valor,
+                rateio: copiarRateio(parcela.rateio)
             });
         })
     }catch(Ex) {}
     return p;
+}
+
+export const copiarRateio = function(rateios) {
+    var r = [];
+    try {
+        rateios.forEach(rateio => {
+            r.push({
+                id: rateio.id,
+                valor: rateio.valor,
+                beneficiado: rateio.beneficiado,
+                DOC: rateio.DOC,
+            });
+        })
+    }catch(Ex) {}
+    return r.length > 0 ? r : null;
 }

@@ -139,7 +139,7 @@ const Parcelas = function({ open, close, parcelas, vendaAberta, refresh }) {
             <TabView activeIndex={abaSelecionada} onTabChange={handleTabAlterada}>
                 <TabPanel leftIcon="pi pi-th-large" header={< div className='ml-2'>Parcelas cadastradas</div>}>
                     <div className="card">
-                        <CadastrarRateio close={fecharModalCadastrarRateio} parcela={parcelaCadastrandoRateio} open={openDialogCadastrarRateio} />
+                        <CadastrarRateio venda={vendaAberta} close={fecharModalCadastrarRateio} parcela={parcelaCadastrandoRateio} open={openDialogCadastrarRateio} />
                         <DataTable loading={loading} rowExpansionTemplate={rowRateio} expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)} value={formatarParcela(parcelas)} responsiveLayout="scroll" emptyMessage={<div className="mt-2">Nenhuma parcela encontrada</div>} dataKey="id">
                             <Column header="Rateios" expander style={{ width: '3em' }} />
                             <Column className="white-space-nowrap" field="id" header="ID" />

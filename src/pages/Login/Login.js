@@ -13,7 +13,7 @@ const Login = (props) => {
     const [errorLogin, setErrorLogin] = useState('');
     const [login, setLogin] = useState('');
     const [senha, setSenha] = useState('');
-    const [ctrl, setCtrl] = useState(1);
+        const [ctrl, setCtrl] = useState(1);
     const [lastCharIs, setLastCharIs] = useState('');
     var buff;
     const toast = useRef();
