@@ -13,6 +13,7 @@ import {handleMascararReal} from "../../components/utils/FormatacaoReal";
 import CadastrarParcela from "./CadastrarParcela";
 import VendaServiceAPI from "../../service/VendaServiceAPI";
 import {copiarVendaParaJSON} from "../../components/utils/Venda";
+import CadastrarRateio from "./CadastrarRateio";
 
 const Parcelas = function({ open, close, parcelas, vendaAberta, refresh }) {
 
@@ -23,6 +24,9 @@ const Parcelas = function({ open, close, parcelas, vendaAberta, refresh }) {
     const [loading, setLoading] = useState(false);
     const [abaSelecionada, setAbaSelecionada] = useState(0);
     const [parcelaEditando, setParcelaEditando] = useState();
+    const [openDialogCadastrarRateio, setOpenDialogCadastrarRateio] = useState(false);
+    const [parcelaCadastrandoRateio, setParcelaCadastrandoRateio] = useState();
+
     const formatarParcela = function() {
 
         const funcDeletarParcela = function(p) {
@@ -53,16 +57,26 @@ const Parcelas = function({ open, close, parcelas, vendaAberta, refresh }) {
         return __parcelas;
     }
 
+    const abrirCadastrarRateio = function(parcela) {
+        setParcelaCadastrandoRateio(parcela)
+        setOpenDialogCadastrarRateio(true);
+    }
+
     const rowRateio = (data) => {
         return (
             <div className="orders-subtable">
-                <h6>Rateios da parcela #{data.id}</h6>
-                <DataTable value={data.rateio} responsiveLayout="scroll" emptyMessage={<div className="mt-2">Nenhum rateio encontrado</div>}>
-                    <Column field="id" header="Id" ></Column>
-                    <Column field="beneficiado" header="Beneficiado"></Column>
-                    <Column field="valor" header="Valor"></Column>
-                    <Column field="DOC" header="CPF/CNPJ do beneficiado"></Column>
-                </DataTable>
+                <div className="card">
+                    <div className="flex justify-content-between">
+                        <h6>Rateios da parcela #{data.id}</h6>
+                        <Button icon="pi pi-plus" onClick={() => abrirCadastrarRateio(data)} className="p-button-success" label="Cadastrar rateio" />
+                    </div>
+                    <DataTable value={data.rateio} responsiveLayout="scroll" emptyMessage={<div className="mt-2">Nenhum rateio encontrado</div>}>
+                        <Column field="id" header="Id" ></Column>
+                        <Column field="beneficiado" header="Beneficiado"></Column>
+                        <Column field="valor" header="Valor"></Column>
+                        <Column field="DOC" header="CPF/CNPJ do beneficiado"></Column>
+                    </DataTable>
+                </div>
             </div>
         );
     };
@@ -108,6 +122,11 @@ const Parcelas = function({ open, close, parcelas, vendaAberta, refresh }) {
         close();
     }
 
+    const fecharModalCadastrarRateio = function() {
+        setOpenDialogCadastrarRateio(false);
+        setParcelaCadastrandoRateio(null);
+    }
+
     return (
         <Dialog visible={open} header="Parcelas da venda" onHide={fecharModal}>
             <Toast ref={toast} />
@@ -120,6 +139,7 @@ const Parcelas = function({ open, close, parcelas, vendaAberta, refresh }) {
             <TabView activeIndex={abaSelecionada} onTabChange={handleTabAlterada}>
                 <TabPanel leftIcon="pi pi-th-large" header={< div className='ml-2'>Parcelas cadastradas</div>}>
                     <div className="card">
+                        <CadastrarRateio close={fecharModalCadastrarRateio} parcela={parcelaCadastrandoRateio} open={openDialogCadastrarRateio} />
                         <DataTable loading={loading} rowExpansionTemplate={rowRateio} expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)} value={formatarParcela(parcelas)} responsiveLayout="scroll" emptyMessage={<div className="mt-2">Nenhuma parcela encontrada</div>} dataKey="id">
                             <Column header="Rateios" expander style={{ width: '3em' }} />
                             <Column className="white-space-nowrap" field="id" header="ID" />
