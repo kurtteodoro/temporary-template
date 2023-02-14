@@ -7,12 +7,16 @@ import {Skeleton} from "primereact/skeleton";
 import VendaServiceAPI from "../../service/VendaServiceAPI";
 import {Toast} from "primereact/toast";
 import CadastrarVenda from "./CadastrarVenda";
+import Parcelas from "./Parcelas";
 
 const Vendas = function() {
 
     const [vendas, setVendas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [openDialogCadastrarVenda, setOpenDialogCadastrarVenda] = useState(false);
+    const [parcelasVendaSelecionada, setParcelasVendaSelecionada] = useState({});
+    const [openDialogParcelas, setOpenDialogParcelas] = useState(false);
+    const [vendaAberta, setVendaAberta] = useState({});
     const toast = useRef();
 
     useEffect(() => {
@@ -26,6 +30,16 @@ const Vendas = function() {
             const result = await vendaServiceAPI.buscarVendas();
             setVendas(formatarVendas(result.data));
             setLoading(false);
+
+            // Se o usuário estiver com o modal de alguma venda aberto
+            if(vendaAberta && Object.keys(vendaAberta).length > 0) {
+                const tmp = {
+                    ...JSON.parse(result.data.find(e => e.Id == vendaAberta.id).conteudo),
+                    id: vendaAberta.id
+                }
+                setVendaAberta(tmp);
+                setParcelasVendaSelecionada(tmp.parcelas);
+            }
         } catch(ex) {
             toast.current.show({ severity: 'error', summary: 'Erro desconhecido', detail: 'Ops, houve um erro desconhecido, tente novamente', life: 3000 });
         }
@@ -38,22 +52,32 @@ const Vendas = function() {
             return vendasExibicao;
 
         data.forEach( v => {
-            var obj = formataVenda(v);
-            vendasExibicao.push(obj);
+            vendasExibicao.push(
+                formataVenda(v)
+            );
         });
 
         return vendasExibicao.reverse();
+    }
+
+    const handleAbrirModalParcelas = function(venda) {
+        setParcelasVendaSelecionada(venda.parcelas);
+        setVendaAberta(venda);
+        setOpenDialogParcelas(true);
     }
 
     const formataVenda = function(v) {
         var obj = JSON.parse(v.conteudo);
         obj.acoes = (<div>
             <Button icon="pi pi-pencil" className="mr-2" />
-            <Button icon="pi pi-trash" className="p-button-danger" />
+            <Button icon="pi pi-trash" className="p-button-danger mr-2" />
+            <Button icon="pi pi-check" className="p-button-success" />
         </div>);
-        obj.numeroDeParcelas = (<Button>{obj.numeroDeParcelas} parcelas</Button>)
+        obj.qtdParcelas = obj.numeroDeParcelas;
+        obj.numeroDeParcelas = (<Button onClick={() => handleAbrirModalParcelas(obj)}>{obj?.parcelas?.length ?? 0} parcelas</Button>);
         obj.dataVenda = obj.dataVenda.replace(/-/g, '/');
         obj.dataCriacaoVenda = obj.dataCriacaoVenda.replace(/-/g, '/');
+        obj.id = v.Id;
         return obj;
     }
 
@@ -65,6 +89,10 @@ const Vendas = function() {
         }
     }
 
+    const fecharModalParcelas = function(venda=null) {
+        setOpenDialogParcelas(false);
+    }
+
     return (
         <div>
             <Toast ref={toast} />
@@ -73,6 +101,7 @@ const Vendas = function() {
                     <div className="flex justify-content-end">
                         <Button onClick={() => setOpenDialogCadastrarVenda(true)} loading={loading} className="p-button-success mt-2" label="Cadastrar venda" icon="pi pi-plus" />
                         <CadastrarVenda close={fecharModalVenda} open={openDialogCadastrarVenda} />
+                        <Parcelas refresh={start} vendaAberta={vendaAberta} parcelas={parcelasVendaSelecionada} close={fecharModalParcelas} open={openDialogParcelas} />
                     </div>
 
                     <div className="mt-3 card">

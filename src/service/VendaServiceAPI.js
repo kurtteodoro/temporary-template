@@ -20,4 +20,13 @@ export default class VendaServiceAPI extends ServiceAPI {
         });
     }
 
+    async atualizarVenda(data, venda_id) {
+        return await this.http().put('https://remessa.imobibankbrasil.com.br/v1/remessas/'+venda_id, data, {
+            headers: {
+                'idremessa': 0,
+                'status': 0
+            }
+        });
+    }
+
 }

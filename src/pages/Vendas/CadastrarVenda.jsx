@@ -77,7 +77,7 @@ const CadastrarVenda = function({ open, close }) {
 
         if(errors.length > 0) {
             toast.current.show(errors.map(
-                erro => ({ severity: 'error', summary: 'Verifique o seguintes campo', detail: erro, life: 3000 })
+                erro => ({ severity: 'error', summary: 'Verifique os seguintes campos', detail: erro, life: 3000 })
             ));
             return 0;
         }
@@ -97,7 +97,7 @@ const CadastrarVenda = function({ open, close }) {
             nomeCliente: nomeCliente,
             numero: numeroCliente,
             numeroContrato: numeroContrato,
-            codigo: 423423,
+            codigo: String(Math.floor(Date.now() / 1000)),
             numeroDeParcelas: numeroParcelas,
             parcelas: null,
             sellerId: JSON.parse(localStorage.getItem("@usuario")).seller_id,
