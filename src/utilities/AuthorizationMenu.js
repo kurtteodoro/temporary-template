@@ -3,19 +3,19 @@ const featuresAuthorizations  = [
       label: 'Vendas',
       icon: 'pi pi-shopping-cart',
       to: '/',
-      authorizations :["ROLE_EDITAR_USUARIO","ROLE_EDITAR_USUARIO", "ROLE_EDITAR_USUARIO"]
+      authorizations :["ROLE_VISUALIZAR_VENDA"]
     },
     {
       label : "Remessas",
       icon: 'pi pi-shopping-cart',
       to : '/remessas',
-      authorizations :["ROLE_EDITAR_USUARIO","ROLE_EDITAR_USUARIO", "ROLE_EDITAR_USUARIO"]
+      authorizations :["ROLE_VISUALIZAR_REMESSA"]
     },
     {
       label : "Cancelamento",
       icon: 'pi pi-shopping-cart',
       to : '/cancelamento',
-      authorizations :["ROLE_EDITAR_USUARIO","ROLE_EDITAR_USUARIO", "ROLE_EDITAR_USUARIO"]
+      authorizations :["ROLE_CANCELAR_REMESSA"]
     }
   ];
   

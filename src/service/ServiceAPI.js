@@ -16,7 +16,7 @@ export default class ServiceBaseAPI {
             if(error?.response?.status == 401 && localStorage.getItem('@token')) {
                 alert("Sessão expirada");
                 localStorage.clear();
-                window.location.href = "/#/login";
+                window.location.href = "/";
             }
             return Promise.reject(error);
         });
