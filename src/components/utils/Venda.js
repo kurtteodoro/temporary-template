@@ -1,3 +1,6 @@
+import {validCnpj, validCpf} from "../../pages/Login/validacoes";
+import {formataCNPJ, formataCPF} from "./FormatacaoString";
+
 export const copiarVendaParaJSON = function(v) {
     return {
         codigo: v.codigo,
@@ -20,7 +23,8 @@ export const copiarVendaParaJSON = function(v) {
         valorDaVenda: v.valorDaVenda,
         valor: v.valor,
         dataCriacaoVenda: v.dataCriacaoVenda.replace(/\//g, '-'),
-        parcelas: copiarParcelas(v.parcelas)
+        parcelas: copiarParcelas(v.parcelas),
+        status: v.status
     }
 }
 
@@ -46,13 +50,23 @@ export const copiarParcelas = function(parcelas) {
 
 export const copiarRateio = function(rateios) {
     var r = [];
+
+    const formatarDocumento = function(doc) {
+        if(validCpf(doc)) {
+            return formataCPF(doc.replace(/\D/g,''))
+        }
+        if(validCnpj(doc)) {
+            return formataCNPJ(doc.replace(/\D/g,''))
+        }
+    }
+
     try {
         rateios.forEach(rateio => {
             r.push({
                 id: rateio.id,
                 valor: rateio.valor,
                 beneficiado: rateio.beneficiado,
-                DOC: rateio.DOC,
+                DOC: formatarDocumento(rateio.DOC)
             });
         })
     }catch(Ex) {}

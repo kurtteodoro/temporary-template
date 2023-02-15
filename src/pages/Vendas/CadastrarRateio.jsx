@@ -4,12 +4,13 @@ import {Calendar} from "primereact/calendar";
 import {InputText} from "primereact/inputtext";
 import {brlToFloat, handleMascararReal} from "../../components/utils/FormatacaoReal";
 import {Button} from "primereact/button";
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import InputMask from "react-input-mask";
 import {formatCNPJ, validCnpj, validCpf} from "../Login/validacoes";
 import {copiarVendaParaJSON} from "../../components/utils/Venda";
+import VendaServiceAPI from "../../service/VendaServiceAPI";
 
-const CadastrarRateio = function({ open, close, parcela, venda }) {
+const CadastrarRateio = function({ open, close, parcela, venda, refresh, voltar, rateioEditando }) {
 
     const toast = useRef();
     const [nomeBeneficiado, setNomeBeneficiado] = useState('');
@@ -22,6 +23,18 @@ const CadastrarRateio = function({ open, close, parcela, venda }) {
     const [errorNome, setErrorNome] = useState(false);
     const [loading, setLoading] = useState(false);
     var buff;
+
+    useEffect(() => {
+        if(open && rateioEditando) {
+            setNomeBeneficiado(rateioEditando.beneficiado)
+            if(validCnpj(rateioEditando.DOC))
+                setCtrl(2);
+            if(validCpf(rateioEditando.DOC))
+                setCtrl(1);
+            setCPFBeneficiado(rateioEditando.DOC)
+            setValorRateio(rateioEditando.valor.replace('R$', '').trim());
+        }
+    }, [open]);
 
     const saveBuff = function(event) {
         buff = event.key;
@@ -43,7 +56,7 @@ const CadastrarRateio = function({ open, close, parcela, venda }) {
             setErrorCPF(true);
         }
 
-        if(brlToFloat(valorRateio) < 3) {
+        if(brlToFloat(valorRateio) < 1 || !brlToFloat(valorRateio) || valorRateio[0] == ',') {
             errors.push('O valor mínimo é de R$ 1,00');
             setErrorValorRateio(true);
         }
@@ -56,24 +69,54 @@ const CadastrarRateio = function({ open, close, parcela, venda }) {
         }
 
         var _venda = {...venda};
-        var indexParcela = _venda.parcelas.findIndex(e => e.id == parcela.id);
         var novoRateio = {
-            id: String(Math.floor(Date.now() / 1000)),
-            valor: valorRateio,
+            id: rateioEditando ? rateioEditando.id : String(Math.floor(Date.now() / 1000)),
+            valor: 'R$ ' + valorRateio,
             beneficiado: nomeBeneficiado,
             DOC: CPFBeneficiado
         };
 
-        if(Array.isArray(_venda.parcelas[indexParcela].rateio))
-            _venda.parcelas[indexParcela].rateio.push(novoRateio);
-        else
-            _venda.parcelas[indexParcela].rateio = [novoRateio];
+        if(rateioEditando) {
+            _venda?.parcelas?.forEach( (p,i) => {
+                if(p.id == parcela.id) {
+                    parcela?.rateio?.forEach( (r, _i) => {
+                        if(r.id == rateioEditando.id) {
+                            _venda.parcelas[i].rateio[_i] = novoRateio;
+                        }
+                    });
+                }
+            });
 
-        setLoading(true);
-        console.log(copiarVendaParaJSON(_venda));
+        } else {
+            var indexParcela = _venda.parcelas.findIndex(e => e.id == parcela.id);
+            if(Array.isArray(_venda.parcelas[indexParcela].rateio))
+                _venda.parcelas[indexParcela].rateio.push(novoRateio);
+            else
+                _venda.parcelas[indexParcela].rateio = [novoRateio];
+        }
+
+        try {
+            setLoading(true);
+            const vendaServiceAPI = new VendaServiceAPI();
+            const res = await vendaServiceAPI.atualizarVenda(copiarVendaParaJSON(_venda), venda.id);
+            toast.current.show({ severity: 'success', summary: 'Sucesso', detail: rateioEditando ? 'Rateio editado com sucesso' : 'Rateio cadastrado com sucesso', life: 3000 });
+            setValorRateio('');
+            setNomeBeneficiado('');
+            setCPFBeneficiado('');
+            setLoading(false);
+            await refresh();
+            voltar();
+        }catch(ex) {
+            toast.current.show({ severity: 'error', summary: 'Erro desconhecido', detail: 'Ops, houve um erro desconhecido, tente novamente', life: 3000 });
+        }
+
     }
 
     const handleFecharModal = function() {
+        setLoading(false);
+        setValorRateio('');
+        setCPFBeneficiado('');
+        setNomeBeneficiado('');
         close();
     }
 
@@ -96,7 +139,7 @@ const CadastrarRateio = function({ open, close, parcela, venda }) {
     }
 
     return (
-        <Dialog header={"Cadastrar rateio da parcela #" + parcela?.id} visible={open} onHide={handleFecharModal}>
+        <Dialog header={ rateioEditando ? ("Editar rateio #"+rateioEditando.id) : ("rateio da parcela #" + parcela?.id) } visible={open} onHide={handleFecharModal}>
             <form onSubmit={handleCadastrarRateio}>
                 <Toast ref={toast} />
                 <div className="grid pt-4">
@@ -150,7 +193,7 @@ const CadastrarRateio = function({ open, close, parcela, venda }) {
                         </span>
                     </div>
                     <div className="col-6 mb-3">
-                        <Button loading={loading} className="p-button-info" icon="pi pi-save" label="Cadastrar rateio" />
+                        <Button type="submit" loading={loading} className="p-button-info" icon="pi pi-save" label={rateioEditando ? "Editar rateio" : "Cadastrar rateio"} />
                     </div>
                 </div>
             </form>

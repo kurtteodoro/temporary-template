@@ -1,5 +1,6 @@
 import ServiceAPI from './ServiceAPI.js';
 import qs from "qs";
+import axios from "axios";
 
 export default class VendaServiceAPI extends ServiceAPI {
 
@@ -27,6 +28,10 @@ export default class VendaServiceAPI extends ServiceAPI {
                 'status': 0
             }
         });
+    }
+
+    async excluirVenda(venda_id) {
+        return await axios.delete('https://remessa.imobibankbrasil.com.br/v1/remessas/'+venda_id);
     }
 
 }

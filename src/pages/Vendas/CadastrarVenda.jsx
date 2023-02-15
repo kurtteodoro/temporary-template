@@ -1,19 +1,18 @@
 import {Dialog} from "primereact/dialog";
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {InputText} from "primereact/inputtext";
 import {Button} from "primereact/button";
 import {Calendar} from "primereact/calendar";
 
-import { locale, addLocale, updateLocaleOption, updateLocaleOptions, localeOption, localeOptions } from 'primereact/api';
 import InputMask from "react-input-mask";
 import {validCpf} from "../Login/validacoes";
 import {brlToFloat, floatToBrl, handleMascararReal} from "../../components/utils/FormatacaoReal";
 import {Toast} from "primereact/toast";
 import moment from "moment";
 import VendaServiceAPI from "../../service/VendaServiceAPI";
-import jwt_decode from "jwt-decode";
+import {copiarVendaParaJSON} from "../../components/utils/Venda";
 
-const CadastrarVenda = function({ open, close }) {
+const CadastrarVenda = function({ open, close, vendaEditando }) {
 
     const [nomeProduto, setNomeProduto] = useState('');
     const [dataVenda, setDataVenda] = useState();
@@ -40,6 +39,52 @@ const CadastrarVenda = function({ open, close }) {
     const [loading, setLoading] = useState(false);
     const toast = useRef();
 
+    useEffect(() => {
+        if(open && vendaEditando) {
+            setNomeProduto(vendaEditando.unidade);
+            setNomeCliente(vendaEditando.nomeCliente);
+            setEmailCliente(vendaEditando.emailCliente);
+            setCpfCliente(vendaEditando.DOCCliente);
+            setEnderecoCliente(vendaEditando.endereco);
+            setNumeroCliente(vendaEditando.numero);
+            setComplemento(vendaEditando.complemento);
+            setBairro(vendaEditando.bairro);
+            setCidade(vendaEditando.cidade);
+            setEstado(vendaEditando.estado);
+            setCepVenda(vendaEditando.cep);
+            setValorVenda(vendaEditando.valorDaVenda.replace('R$', '').trim());
+            setValorIntermediacao(vendaEditando.valor.replace('R$', '').trim());
+            setNumeroParcelas(vendaEditando.parcelas.length);
+            setNumeroContrato(vendaEditando.numeroContrato);
+            setDataVenda(moment(vendaEditando.dataVenda.replace(/\//g, '-').split('-').reverse().join('-')).toDate());
+        } else if (open) {
+            setDataVenda(null);
+        }
+    }, [open]);
+
+    const limparCampos = function () {
+        setNomeProduto('');
+        setCpfCliente('');
+        setNumeroCliente('');
+        setNomeCliente('');
+        setEmailCliente('');
+        setEnderecoCliente('');
+        setComplemento('');
+        setBairro('');
+        setCidade('');
+        setEstado('');
+        setCepVenda('');
+        setValorVenda('');
+        setValorIntermediacao('');
+        setNumeroParcelas('');
+        setNumeroContrato('');
+        setErrorCPF(false);
+        setErrorDataVenda(false);
+        setErrorCEP(false);
+        setErrorValorVenda(false);
+        setErrorValorIntermediacao(false);
+    }
+
     const handleCadastrarVenda = async function(event) {
         event.preventDefault();
         var errors = [];
@@ -60,7 +105,7 @@ const CadastrarVenda = function({ open, close }) {
             errors.push("Insira um CEP válido");
         }
 
-        if(brlToFloat(valorVenda) < 1) {
+        if(brlToFloat(valorVenda) < 1 || !brlToFloat(valorVenda) || valorVenda[0] == ',') {
             setErrorValorVenda(true);
             errors.push("Insira o valor da venda");
         }
@@ -82,7 +127,11 @@ const CadastrarVenda = function({ open, close }) {
             return 0;
         }
 
-        const data = {
+        var data = {};
+        if(vendaEditando)
+            data = {...vendaEditando};
+        data = {
+            ...data,
             DOCCliente: cpfCliente,
             bairro: bairro,
             cep: cepVenda,
@@ -99,35 +148,29 @@ const CadastrarVenda = function({ open, close }) {
             numeroContrato: numeroContrato,
             codigo: String(Math.floor(Date.now() / 1000)),
             numeroDeParcelas: numeroParcelas,
-            parcelas: null,
             sellerId: JSON.parse(localStorage.getItem("@usuario")).seller_id,
             unidade: nomeProduto,
             valor: brlToFloat(valorIntermediacao).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}),
             valorDaVenda: brlToFloat(valorVenda).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}),
+            status: vendaEditando?.status ? vendaEditando?.status : 0
         }
+
+        if(!vendaEditando)
+            data.parcelas = null;
 
         const vendaServiceAPI = new VendaServiceAPI();
 
         try {
             setLoading(true);
-            const res = await vendaServiceAPI.cadastrarVenda(data);
+            if(vendaEditando) {
+                var tmp = copiarVendaParaJSON(data);
+                tmp.codigo = vendaEditando.codigo;
+                var res = await vendaServiceAPI.atualizarVenda(tmp,vendaEditando.id);
+            } else
+                var res = await vendaServiceAPI.cadastrarVenda(copiarVendaParaJSON(data));
             setLoading(false);
-            setNomeProduto('');
-            setCpfCliente('');
-            setNumeroCliente('');
-            setNomeCliente('');
-            setEmailCliente('');
-            setEnderecoCliente('');
-            setComplemento('');
-            setBairro('');
-            setCidade('');
-            setEstado('');
-            setCepVenda('');
-            setValorVenda('');
-            setValorIntermediacao('');
-            setNumeroParcelas('');
-            setNumeroContrato('');
-            close(data);
+            limparCampos();
+            close(true);
         } catch (ex) {
             toast.current.show({ severity: 'error', summary: 'Tente novamente', detail: 'Houve um erro inesperado, tente novamente', life: 3000 });
             setLoading(false);
@@ -135,8 +178,14 @@ const CadastrarVenda = function({ open, close }) {
 
     }
 
+    const fecharModal = function() {
+        limparCampos();
+        if(!loading)
+            close();
+    }
+
     return (
-        <Dialog style={{maxWidth: 850}} header="Cadastrar venda" visible={open} modal onHide={loading ? null : close}>
+        <Dialog style={{maxWidth: 850}} header={vendaEditando ? "Editar venda" : "Cadastrar venda"} visible={open} modal onHide={fecharModal}>
             <Toast ref={toast} />
             <form onSubmit={handleCadastrarVenda}>
                 <div className="grid pt-4">
@@ -281,7 +330,7 @@ const CadastrarVenda = function({ open, close }) {
                         </span>
                     </div>
                     <div className="col-6 mb-3">
-                        <Button loading={loading} icon="pi pi-save" className="p-button-info" label="Cadastrar venda" />
+                        <Button loading={loading} icon="pi pi-save" className="p-button-info" label={vendaEditando ? "Editar venda" : "Cadastrar venda"} />
                     </div>
                 </div>
             </form>

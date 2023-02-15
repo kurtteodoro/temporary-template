@@ -88,7 +88,7 @@ const CadastrarParcela = function({ venda, refresh, parcelaEditando, voltar }) {
             __parcelas.push({
                 "id": id+i,
                 "dataVencimento": moment(dataVencimento).add('month', i).format('DD-MM-YYYY'),
-                "valor": "R$ " + floatToBrl(valorParcela),
+                "valor": "R$ " + valorParcela,
                 "formaPgto": "boleto",
                 "dadosPgto": "informacao nao disponivel",
                 "dataLimitePagamento": moment(dataVencimento).add('days', 3).format('DD-MM-YYYY'),

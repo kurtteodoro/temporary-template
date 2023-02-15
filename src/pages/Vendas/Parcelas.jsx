@@ -21,22 +21,40 @@ const Parcelas = function({ open, close, parcelas, vendaAberta, refresh }) {
     const [expandedRows, setExpandedRows] = useState(null);
     const [openDialogDeletarParcela, setOpenDialogDeletarParcela] = useState(false);
     const [parcelaDeletar, setParcelaDeletar] = useState();
+    const [rateioDeletar, setRateioDeletar] = useState();
     const [loading, setLoading] = useState(false);
     const [abaSelecionada, setAbaSelecionada] = useState(0);
     const [parcelaEditando, setParcelaEditando] = useState();
+    const [rateioEditando, setRateioEditando] = useState();
     const [openDialogCadastrarRateio, setOpenDialogCadastrarRateio] = useState(false);
     const [parcelaCadastrandoRateio, setParcelaCadastrandoRateio] = useState();
+    const [tipoEditando, setTipoEditando] = useState('');
 
     const formatarParcela = function() {
 
         const funcDeletarParcela = function(p) {
+            setTipoEditando('parcela');
             setOpenDialogDeletarParcela(true);
             setParcelaDeletar(p.id);
         }
 
         const editarParcela = function(parcela) {
+            setTipoEditando('parcela');
             setAbaSelecionada(1);
             setParcelaEditando(parcela);
+        }
+
+        const funcDeletarRateio = function(r) {
+            setTipoEditando('rateio');
+            setOpenDialogDeletarParcela(true);
+            setRateioDeletar(r.id);
+        }
+
+        const editarRateio = function(rateio, parcela) {
+            setTipoEditando('rateio');
+            setOpenDialogCadastrarRateio(true);
+            setRateioEditando(rateio);
+            setParcelaCadastrandoRateio(parcela);
         }
 
         if(parcelas == null || ( typeof parcelas == "object" && !Array.isArray(parcelas) && Object.keys(parcelas) == 0 ) )
@@ -51,13 +69,22 @@ const Parcelas = function({ open, close, parcelas, vendaAberta, refresh }) {
                    <Button icon="pi pi-pencil" onClick={() => editarParcela(p)} className="mr-2" />
                    <Button icon="pi pi-trash" onClick={() => funcDeletarParcela(p)} className="p-button-danger" />
                </div>
-           )
+           );
+            p?.rateio?.forEach(r => {
+                r.acoes = (
+                    <div>
+                        <Button icon="pi pi-pencil" onClick={() => editarRateio(r, p)} className="mr-2" />
+                        <Button icon="pi pi-trash" onClick={() => funcDeletarRateio(r)} className="p-button-danger" />
+                    </div>
+                );
+            });
         });
 
         return __parcelas;
     }
 
     const abrirCadastrarRateio = function(parcela) {
+        setRateioEditando(null);
         setParcelaCadastrandoRateio(parcela)
         setOpenDialogCadastrarRateio(true);
     }
@@ -75,6 +102,7 @@ const Parcelas = function({ open, close, parcelas, vendaAberta, refresh }) {
                         <Column field="beneficiado" header="Beneficiado"></Column>
                         <Column field="valor" header="Valor"></Column>
                         <Column field="DOC" header="CPF/CNPJ do beneficiado"></Column>
+                        <Column field="acoes" header="Acoes"></Column>
                     </DataTable>
                 </div>
             </div>
@@ -103,10 +131,34 @@ const Parcelas = function({ open, close, parcelas, vendaAberta, refresh }) {
         setLoading(false);
     }
 
+    const handleDeletarRateio = async function() {
+        setOpenDialogDeletarParcela(false);
+        setLoading(true);
+        const vendaServiceAPI = new VendaServiceAPI();
+        var vendaAtualizada = {...copiarVendaParaJSON(vendaAberta)};
+
+        vendaAtualizada.parcelas.forEach((p, i) => {
+            p?.rateio?.forEach((r,_i) => {
+                if(r.id == rateioDeletar)
+                    vendaAtualizada.parcelas[i].rateio.splice(_i, 1);
+            });
+        });
+
+        try{
+            const res = await vendaServiceAPI.atualizarVenda(vendaAtualizada, vendaAberta.id);
+            toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Rateio excluído com sucesso', life: 3000 });
+        } catch(ex) {
+            toast.current.show({ severity: 'error', summary: 'Erro desconhecido', detail: 'Ops, houve um erro desconhecido, tente novamente', life: 3000 });
+        }
+
+        await refresh();
+        setLoading(false);
+    }
+
     const dialogDeletarParcela = (
         <>
             <Button type="button" label="Não" icon="pi pi-times" onClick={() => setOpenDialogDeletarParcela(false)} className="p-button-text" />
-            <Button type="button" label="Sim" icon="pi pi-check" onClick={handleDeletarParcela} className="p-button-text" autoFocus />
+            <Button type="button" label="Sim" icon="pi pi-check" onClick={ tipoEditando == 'parcela' ? handleDeletarParcela : handleDeletarRateio } className="p-button-text" autoFocus />
         </>
     );
 
@@ -130,16 +182,19 @@ const Parcelas = function({ open, close, parcelas, vendaAberta, refresh }) {
     return (
         <Dialog visible={open} header="Parcelas da venda" onHide={fecharModal}>
             <Toast ref={toast} />
-            <Dialog header="Deletar parcela ?" onHide={() => setOpenDialogDeletarParcela(false)} visible={openDialogDeletarParcela} footer={dialogDeletarParcela}>
+            <Dialog header={ tipoEditando == 'parcela' ? "Deletar parcela ?" : "Deletar rateio ?" } onHide={() => {
+                setOpenDialogDeletarParcela(false);
+                setRateioEditando(null);
+            }} visible={openDialogDeletarParcela} footer={dialogDeletarParcela}>
                 <div className="flex align-items-center justify-content-center">
                     <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
-                    <span>Tem certeza que deseja deletar essa parcela ?</span>
+                    <span>Tem certeza que deseja deletar { tipoEditando == 'parcela' ? 'essa parcela' : 'esse rateio' } ?</span>
                 </div>
             </Dialog>
             <TabView activeIndex={abaSelecionada} onTabChange={handleTabAlterada}>
                 <TabPanel leftIcon="pi pi-th-large" header={< div className='ml-2'>Parcelas cadastradas</div>}>
                     <div className="card">
-                        <CadastrarRateio venda={vendaAberta} close={fecharModalCadastrarRateio} parcela={parcelaCadastrandoRateio} open={openDialogCadastrarRateio} />
+                        <CadastrarRateio parcel rateioEditando={rateioEditando} refresh={refresh} voltar={fecharModalCadastrarRateio} venda={vendaAberta} close={fecharModalCadastrarRateio} parcela={parcelaCadastrandoRateio} open={openDialogCadastrarRateio} />
                         <DataTable loading={loading} rowExpansionTemplate={rowRateio} expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)} value={formatarParcela(parcelas)} responsiveLayout="scroll" emptyMessage={<div className="mt-2">Nenhuma parcela encontrada</div>} dataKey="id">
                             <Column header="Rateios" expander style={{ width: '3em' }} />
                             <Column className="white-space-nowrap" field="id" header="ID" />
