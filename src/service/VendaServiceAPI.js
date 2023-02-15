@@ -34,4 +34,8 @@ export default class VendaServiceAPI extends ServiceAPI {
         return await axios.delete('https://remessa.imobibankbrasil.com.br/v1/remessas/'+venda_id);
     }
 
+    async gerarRemessas(data) {
+        return await this.http().post('https://api.imobibankbrasil.com.br/api/v2/pagamentos/remessa', data);
+    }
+
 }

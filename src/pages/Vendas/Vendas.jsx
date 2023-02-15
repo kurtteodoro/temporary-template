@@ -140,7 +140,7 @@ const Vendas = function() {
     const formataVenda = function(v) {
         var obj = JSON.parse(v.conteudo);
         obj.acoes = (<div>
-            <Button icon="pi pi-pencil" onClick={() => abrirModalEditarVenda(obj)} className="mr-2" />
+            <Button disabled={obj.status == 2} icon="pi pi-pencil" onClick={() => abrirModalEditarVenda(obj)} className="mr-2" />
             {/*<Button icon="pi pi-trash" onClick={() => abrirModalConfirmarExclusaoVenda(obj)} className="p-button-danger mr-2" />*/}
             <Button disabled={obj.status != 0} icon="pi pi-check" onClick={() => aprovarVenda(obj)} className="p-button-success" />
         </div>);
@@ -199,6 +199,29 @@ const Vendas = function() {
         );
     }
 
+    const handleGerarRemessa = async function() {
+        if(vendasSelecionadaRemessa.length > 0) {
+            var vendasGerarRemessas = [];
+            vendasSelecionadaRemessa?.forEach(v => {
+                vendasGerarRemessas.push(copiarVendaParaJSON(v));
+            });
+            const vendaServiceAPI = new VendaServiceAPI();
+            try {
+                setLoading(true);
+                const res = await vendaServiceAPI.gerarRemessas(vendasGerarRemessas);
+                toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Remessas geradas com sucesso', life: 3000 });
+                for (const v of vendasSelecionadaRemessa) {
+                    await vendaServiceAPI.atualizarVenda({
+                        ...vendasGerarRemessas.find(e => e.codigo == v.codigo),
+                        status: 2
+                    }, v.id)
+                }
+            } catch(ex) {
+                toast.current.show({ severity: 'error', summary: 'Erro', detail: 'Houve um erro inesperado, tente novamente', life: 3000 });
+            }
+            await start();
+        }
+    }
 
     return (
         <div>
@@ -207,7 +230,7 @@ const Vendas = function() {
                 <TabPanel header={< div className='ml-2'>Vendas</div>} leftIcon="pi pi-shopping-cart">
                     <div className="flex justify-content-end">
                         <div className="mr-2">
-                            <Button disabled={vendasSelecionadaRemessa.length == 0} loading={loading} className="p-button-info mt-2" label="Enviar remessa" icon="pi pi-send" />
+                            <Button onClick={handleGerarRemessa} disabled={vendasSelecionadaRemessa.length == 0} loading={loading} className="p-button-info mt-2" label="Enviar remessa" icon="pi pi-send" />
                         </div>
                         <Button onClick={() => {
                             setOpenDialogCadastrarVenda(true);
