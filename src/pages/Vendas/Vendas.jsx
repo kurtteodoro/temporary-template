@@ -86,7 +86,7 @@ const Vendas = function() {
 
     const aprovarVenda = async function(venda) {
         var somaParcelas = 0;
-
+        var exit = false;
         venda?.parcelas?.forEach(p => {
             somaParcelas += brlToFloat(p.valor);
             var somaRateio = 0;
@@ -97,11 +97,14 @@ const Vendas = function() {
             var diffRateio = parseInt(somaRateio) - parseInt(brlToFloat(p.valor));
             if(diffRateio < -5 || diffRateio > 5) {
                 toast.current.show({ severity: 'error', summary: 'Verique', detail: 'A soma dos rateios deve ser o valor da parcela', life: 3000 });
-                console.log(diffRateio);
-                return;
+                exit = true;
+                return 0;
             }
 
         });
+
+        if(exit)
+            return 0;
 
         var diffParcelas = parseInt(somaParcelas) - parseInt(brlToFloat(venda.valor));
         if(diffParcelas < -5 || diffParcelas > 5) {
@@ -158,8 +161,6 @@ const Vendas = function() {
         vendas?.forEach((v,i) => {
            if(v.status == 1)
                toAdd.push(v);
-           else
-               toast.current.show({ severity: 'error', summary: 'Ops', detail: 'Apenas vendas com status "VENDA" pode ir para remessa', life: 3000 })
         });
         setVendasSelecionadaRemessa(toAdd);
     }
@@ -270,12 +271,6 @@ const Vendas = function() {
                         }
                     </div>
 
-                </TabPanel>
-                <TabPanel header={< div className='ml-2'>Remessas</div>} leftIcon="pi pi-shopping-bag">
-                    <p>
-                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                        Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
-                    </p>
                 </TabPanel>
             </TabView>
         </div>

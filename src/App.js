@@ -344,7 +344,8 @@ const App = (props) => {
 
                     <div className="layout-main-content">
                         <Routes>
-                            <Route path="/" element={<Vendas />} />
+                            <Route path="/" element={<></>} />
+                            <Route path="/vendas" element={<Vendas />} />
                             <Route path="/remessas" exact="true" element={<Remessas />} />
                             <Route path="/cancelamento" exact="true" element={<CancelamentoVenda />} />
                             <Route path="*" element={<NotFound />} />

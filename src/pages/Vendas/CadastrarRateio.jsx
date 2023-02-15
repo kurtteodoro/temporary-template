@@ -68,6 +68,16 @@ const CadastrarRateio = function({ open, close, parcela, venda, refresh, voltar,
             return 0;
         }
 
+        const vendaServiceAPI = new VendaServiceAPI();
+
+        try {
+            const res = await vendaServiceAPI.usuarioPermiteRateio(CPFBeneficiado);
+        } catch (ex) {
+            toast.current.show({ severity: 'error', summary: 'Erro', detail: 'CPF/CNPJ não autorizado', life: 3000 });
+            setErrorCPF(true);
+            return 0;
+        }
+
         var _venda = {...venda};
         var novoRateio = {
             id: rateioEditando ? rateioEditando.id : String(Math.floor(Date.now() / 1000)),
@@ -97,7 +107,6 @@ const CadastrarRateio = function({ open, close, parcela, venda, refresh, voltar,
 
         try {
             setLoading(true);
-            const vendaServiceAPI = new VendaServiceAPI();
             const res = await vendaServiceAPI.atualizarVenda(copiarVendaParaJSON(_venda), venda.id);
             toast.current.show({ severity: 'success', summary: 'Sucesso', detail: rateioEditando ? 'Rateio editado com sucesso' : 'Rateio cadastrado com sucesso', life: 3000 });
             setValorRateio('');

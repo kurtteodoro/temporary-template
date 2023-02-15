@@ -16,7 +16,7 @@ const AppBreadcrumb = (props) => {
     let items;
 
     if (location.pathname === '/') {
-        items = [{ label: 'Vendas' }];
+        items = [{ label: 'Página inicial' }];
     } else if (!activeRoute.length) {
         items = [{ label: '' }, { label: '' }];
     } else {

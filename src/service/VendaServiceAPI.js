@@ -38,4 +38,8 @@ export default class VendaServiceAPI extends ServiceAPI {
         return await this.http().post('https://api.imobibankbrasil.com.br/api/v2/pagamentos/remessa', data);
     }
 
+    async usuarioPermiteRateio(doc) {
+        return await this.http().get(`https://adm.imobibankbrasil.com.br/api/v1/empresa/usuario/${doc.replace(/\D/g,'')}/rateio/habilitado`);
+    }
+
 }

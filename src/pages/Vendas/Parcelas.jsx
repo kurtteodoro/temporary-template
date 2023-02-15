@@ -66,15 +66,15 @@ const Parcelas = function({ open, close, parcelas, vendaAberta, refresh }) {
            p.dataVencimento = p.dataVencimento.replace(/-/g, '/');
            p.acoes = (
                <div>
-                   <Button icon="pi pi-pencil" onClick={() => editarParcela(p)} className="mr-2" />
-                   <Button icon="pi pi-trash" onClick={() => funcDeletarParcela(p)} className="p-button-danger" />
+                   <Button icon="pi pi-pencil" disabled={vendaAberta?.status == 2} onClick={() => editarParcela(p)} className="mr-2" />
+                   <Button icon="pi pi-trash" disabled={vendaAberta?.status == 2} onClick={() => funcDeletarParcela(p)} className="p-button-danger" />
                </div>
            );
             p?.rateio?.forEach(r => {
                 r.acoes = (
                     <div>
-                        <Button icon="pi pi-pencil" onClick={() => editarRateio(r, p)} className="mr-2" />
-                        <Button icon="pi pi-trash" onClick={() => funcDeletarRateio(r)} className="p-button-danger" />
+                        <Button disabled={vendaAberta?.status == 2} icon="pi pi-pencil" onClick={() => editarRateio(r, p)} className="mr-2" />
+                        <Button disabled={vendaAberta?.status == 2} icon="pi pi-trash" onClick={() => funcDeletarRateio(r)} className="p-button-danger" />
                     </div>
                 );
             });
@@ -95,7 +95,7 @@ const Parcelas = function({ open, close, parcelas, vendaAberta, refresh }) {
                 <div className="card">
                     <div className="flex justify-content-between">
                         <h6>Rateios da parcela #{data.id}</h6>
-                        <Button icon="pi pi-plus" onClick={() => abrirCadastrarRateio(data)} className="p-button-success" label="Cadastrar rateio" />
+                        <Button icon="pi pi-plus" onClick={() => abrirCadastrarRateio(data)} className="p-button-success" disabled={vendaAberta?.status == 2} label="Cadastrar rateio" />
                     </div>
                     <DataTable value={data.rateio} responsiveLayout="scroll" emptyMessage={<div className="mt-2">Nenhum rateio encontrado</div>}>
                         <Column field="id" header="Id" ></Column>

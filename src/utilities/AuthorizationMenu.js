@@ -2,7 +2,7 @@ const featuresAuthorizations  = [
     {
       label: 'Vendas',
       icon: 'pi pi-shopping-cart',
-      to: '/',
+      to: '/vendas',
       authorizations :["ROLE_VISUALIZAR_VENDA"]
     },
     {
@@ -18,18 +18,18 @@ const featuresAuthorizations  = [
       authorizations :["ROLE_CANCELAR_REMESSA"]
     }
   ];
-  
+
   function generateArrayMenu() {
     try {
       console.log("generateArrayMenu")
       let authorizations = JSON.parse(localStorage.getItem("@authorities"));
       let filteredFeaturesAuthorizations = featuresAuthorizations.filter(
-        element => 
+        element =>
           element.authorizations.some(e => authorizations.includes(e))
-      );    
+      );
       return filteredFeaturesAuthorizations;
     } catch (ex) {
-      return null;   
+      return null;
     }
-  }  
+  }
   export default generateArrayMenu;
