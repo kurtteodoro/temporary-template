@@ -114,8 +114,8 @@ const aceitoCancelamentoVenda = () => {
   const ToolBarSearch = () => {
     return (
       <div >
-            <Button label="Pesquisar" icon="pi pi-search" className="mr-2 mb-2" onClick={obterExtrato} />                                
-            <Button label="Cancelar" icon="pi pi-times-circle" className="p-button-danger mr-2 mb-2" onClick={cancelarExtrato} />            
+            <Button label="Pesquisar" className="mr-2 mb-2" onClick={obterExtrato} />                                
+            <Button label="Cancelar" className="p-button-danger mr-2 mb-2" onClick={cancelarExtrato} />            
             <Dialog header="Confirmation" visible={dialogConfirmacaoExclusao} onHide={() => setDialogConfirmacaoExclusao(false)} style={{ width: '350px' }}
              modal footer={footerConfirmacaoExclusao}>
                             <div className="flex align-items-center justify-content-center">
