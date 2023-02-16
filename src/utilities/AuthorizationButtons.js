@@ -1,5 +1,7 @@
 
-export default function  hasRole(role){
-    let authorizations = JSON.parse(localStorage.getItem("@authorities"));
-    return authorizations.Some(role)
+export default function  hasRole(role){    
+   
+    console.log(`hasRole `)
+    const authorizations = JSON.parse(localStorage.getItem("@authorities"));
+    return authorizations.includes(role);
 }
