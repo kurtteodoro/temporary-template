@@ -6,14 +6,8 @@ const featuresAuthorizations  = [
       authorizations :["ROLE_VISUALIZAR_VENDA"]
     },
     {
-      label : "Remessas",
-      icon: 'pi pi-shopping-cart',
-      to : '/remessas',
-      authorizations :["ROLE_VISUALIZAR_REMESSA"]
-    },
-    {
       label : "Cancelamento",
-      icon: 'pi pi-shopping-cart',
+      icon: 'pi pi-lock',
       to : '/cancelamento',
       authorizations :["ROLE_CANCELAR_REMESSA"]
     }

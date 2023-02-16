@@ -12,6 +12,7 @@ import {Dialog} from "primereact/dialog";
 import {brlToFloat} from "../../components/utils/FormatacaoReal";
 import {copiarVendaParaJSON} from "../../components/utils/Venda";
 import {Checkbox} from "primereact/checkbox";
+import hasRole from "../../utilities/AuthorizationButtons";
 
 const Vendas = function() {
 
@@ -129,13 +130,13 @@ const Vendas = function() {
     const gerarStatus = function(status=0) {
         switch (status) {
             case 0:
-                return (<span className="product-badge status-instock">Preenchimento</span>)
+                return (<span className="customer-badge preenchimento-venda">Preenchimento</span>)
                 break;
             case 1:
                 return (<span className="product-badge status-instock">Venda</span>)
                 break;
             case 2:
-                return (<span className="product-badge status-instock">Remessa</span>)
+                return (<span className="customer-badge status-unqualified">Remessa</span>)
                 break;
         }
     }
@@ -143,12 +144,15 @@ const Vendas = function() {
     const formataVenda = function(v) {
         var obj = JSON.parse(v.conteudo);
         obj.acoes = (<div>
-            <Button disabled={obj.status == 2} icon="pi pi-pencil" onClick={() => abrirModalEditarVenda(obj)} className="mr-2" />
+            <Button disabled={obj.status == 2} icon="pi pi-pencil" onClick={() => abrirModalEditarVenda(obj)} className="mr-2" tooltip="Editar Venda" />
             {/*<Button icon="pi pi-trash" onClick={() => abrirModalConfirmarExclusaoVenda(obj)} className="p-button-danger mr-2" />*/}
-            <Button disabled={obj.status != 0} icon="pi pi-check" onClick={() => aprovarVenda(obj)} className="p-button-success" />
+            <Button disabled={obj.status != 0} icon="pi pi-chevron-right" onClick={() => aprovarVenda(obj)} className="p-button-warning" tooltip="Aprovar Venda" />
         </div>);
         obj.qtdParcelas = obj.numeroDeParcelas;
-        obj.numeroDeParcelas = (<Button onClick={() => handleAbrirModalParcelas(obj)}>{obj?.parcelas?.length ?? 0} parcelas</Button>);
+        obj.numeroDeParcelas = (<Button className="p-button-secondary" onClick={() => handleAbrirModalParcelas(obj)}>  
+        
+        
+         {obj?.parcelas?.length ?? 0} parcelas</Button>);
         obj.dataVenda = obj.dataVenda.replace(/-/g, '/');
         obj.dataCriacaoVenda = obj.dataCriacaoVenda.replace(/-/g, '/');
         obj.id = v.Id;
@@ -194,7 +198,7 @@ const Vendas = function() {
     const footerModalExcluirVenda = function() {
         return (
             <>
-                <Button type="button" label="Não" icon="pi pi-times" onClick={() => setOpenDialogExclusaoVenda(false)} className="p-button-text" />
+                <Button type="button" label="Não" icon="pi pi-times" onClick={() => setOpenDialogExclusaoVenda(false)} className="p-button-text"  />
                 <Button type="button" label="Sim" icon="pi pi-check" onClick={ handleDeletarVenda } className="p-button-text" autoFocus />
             </>
         );
@@ -230,8 +234,10 @@ const Vendas = function() {
             <TabView>
                 <TabPanel header={< div className='ml-2'>Vendas</div>} leftIcon="pi pi-shopping-cart">
                     <div className="flex justify-content-end">
-                        <div className="mr-2">
-                            <Button onClick={handleGerarRemessa} disabled={vendasSelecionadaRemessa.length == 0} loading={loading} className="p-button-info mt-2" label="Enviar remessa" icon="pi pi-send" />
+                        <div className="mr-2">{
+                          hasRole('ROLE_ENVIAR_REMESSA') &&
+                            <Button onClick={handleGerarRemessa} disabled={vendasSelecionadaRemessa.length == 0} loading={loading} className="p-button-info mt-2" label="Enviar remessa" icon="pi pi-send" tooltip="Enviar Remessa" />
+                        }
                         </div>
                         <Button onClick={() => {
                             setOpenDialogCadastrarVenda(true);

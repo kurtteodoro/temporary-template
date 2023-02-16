@@ -66,15 +66,15 @@ const Parcelas = function({ open, close, parcelas, vendaAberta, refresh }) {
            p.dataVencimento = p.dataVencimento.replace(/-/g, '/');
            p.acoes = (
                <div>
-                   <Button icon="pi pi-pencil" disabled={vendaAberta?.status == 2} onClick={() => editarParcela(p)} className="mr-2" />
-                   <Button icon="pi pi-trash" disabled={vendaAberta?.status == 2} onClick={() => funcDeletarParcela(p)} className="p-button-danger" />
+                   <Button icon="pi pi-pencil" disabled={vendaAberta?.status == 2} onClick={() => editarParcela(p)} className="mr-2" tooltip="Editar Parcela" />
+                   <Button icon="pi pi-trash" disabled={vendaAberta?.status == 2} onClick={() => funcDeletarParcela(p)} className="p-button-danger" tooltip="Excluir Parcela" />
                </div>
            );
             p?.rateio?.forEach(r => {
                 r.acoes = (
                     <div>
-                        <Button disabled={vendaAberta?.status == 2} icon="pi pi-pencil" onClick={() => editarRateio(r, p)} className="mr-2" />
-                        <Button disabled={vendaAberta?.status == 2} icon="pi pi-trash" onClick={() => funcDeletarRateio(r)} className="p-button-danger" />
+                        <Button disabled={vendaAberta?.status == 2} icon="pi pi-pencil" onClick={() => editarRateio(r, p)} className="mr-2" tooltip="Editar Rateio" />
+                        <Button disabled={vendaAberta?.status == 2} icon="pi pi-trash" onClick={() => funcDeletarRateio(r)} className="p-button-danger" tooltip="Excluir Rateio" />
                     </div>
                 );
             });
