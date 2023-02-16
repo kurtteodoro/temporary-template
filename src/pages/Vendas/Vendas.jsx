@@ -12,6 +12,7 @@ import {Dialog} from "primereact/dialog";
 import {brlToFloat} from "../../components/utils/FormatacaoReal";
 import {copiarVendaParaJSON} from "../../components/utils/Venda";
 import {Checkbox} from "primereact/checkbox";
+import {copiarVendaParaJSONRemessa} from "../../components/utils/Remessa";
 
 const Vendas = function() {
 
@@ -26,6 +27,8 @@ const Vendas = function() {
     const [openDialogExclusaoVenda, setOpenDialogExclusaoVenda] = useState(false);
     const [vendaExcluindo, setVendaExcluindo] = useState();
     const [vendasSelecionadaRemessa, setVendasSelecionadaRemessa] = useState([]);
+    const [openDialogAprovarVenda, setOpenDialogAprovarVenda] = useState(false);
+    const [vendaAprovando, setVendaAprovando] = useState();
 
     useEffect(() => {
         start();
@@ -84,7 +87,14 @@ const Vendas = function() {
         setVendaExcluindo(venda);
     }
 
-    const aprovarVenda = async function(venda) {
+    const abrirModalAprovarVenda = function (venda) {
+        setOpenDialogAprovarVenda(true);
+        setVendaAprovando(venda);
+    }
+
+    const aprovarVenda = async function() {
+        setOpenDialogAprovarVenda(false);
+        var venda = {...vendaAprovando};
         var somaParcelas = 0;
         var exit = false;
         venda?.parcelas?.forEach(p => {
@@ -145,7 +155,7 @@ const Vendas = function() {
         obj.acoes = (<div>
             <Button disabled={obj.status == 2} icon="pi pi-pencil" onClick={() => abrirModalEditarVenda(obj)} className="mr-2" />
             {/*<Button icon="pi pi-trash" onClick={() => abrirModalConfirmarExclusaoVenda(obj)} className="p-button-danger mr-2" />*/}
-            <Button disabled={obj.status != 0} icon="pi pi-check" onClick={() => aprovarVenda(obj)} className="p-button-success" />
+            <Button disabled={obj.status != 0} icon="pi pi-check" onClick={() => abrirModalAprovarVenda(obj)} className="p-button-success" />
         </div>);
         obj.qtdParcelas = obj.numeroDeParcelas;
         obj.numeroDeParcelas = (<Button onClick={() => handleAbrirModalParcelas(obj)}>{obj?.parcelas?.length ?? 0} parcelas</Button>);
@@ -200,12 +210,25 @@ const Vendas = function() {
         );
     }
 
+    const footerModalAprovarVenda = function() {
+        return (
+            <>
+                <Button type="button" label="Não" icon="pi pi-times" onClick={() => setOpenDialogAprovarVenda(false)} className="p-button-text" />
+                <Button type="button" label="Sim" icon="pi pi-check" onClick={ aprovarVenda } className="p-button-text" autoFocus />
+            </>
+        );
+    }
+
     const handleGerarRemessa = async function() {
         if(vendasSelecionadaRemessa.length > 0) {
             var vendasGerarRemessas = [];
             vendasSelecionadaRemessa?.forEach(v => {
-                vendasGerarRemessas.push(copiarVendaParaJSON(v));
+                vendasGerarRemessas.push({
+                    venda: {...copiarVendaParaJSONRemessa(v, v.id)}
+                });
             });
+            console.log(JSON.stringify(vendasGerarRemessas));
+            return 0;
             const vendaServiceAPI = new VendaServiceAPI();
             try {
                 setLoading(true);
@@ -241,6 +264,9 @@ const Vendas = function() {
                         <Parcelas refresh={start} vendaAberta={vendaAberta} parcelas={parcelasVendaSelecionada} close={fecharModalParcelas} open={openDialogParcelas} />
                         <Dialog header="Excluir venda" visible={openDialogExclusaoVenda} footer={footerModalExcluirVenda()}>
                             <p>Realmente deseja excluir a venda #{vendaExcluindo?.codigo} ?</p>
+                        </Dialog>
+                        <Dialog header="Aprovar venda" visible={openDialogAprovarVenda} footer={footerModalAprovarVenda()}>
+                            <p>Realmente deseja aprovar a venda #{vendaAprovando?.codigo} ?</p>
                         </Dialog>
                     </div>
 

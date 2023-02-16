@@ -1,0 +1,40 @@
+[
+    {
+        "venda" :{ 	=>objeto faltando , enviando sem o atributo "venda"
+
+            codigo : numerico *
+            sellerId => Não existe esse campo, remover
+            unidade => ok
+            dataVenda => deve ser esse formato "yyyy/mm/dd" *
+            DOCCliente => ok
+            nomeCliente=> ok
+            emailCliente => ok
+            numeroContrato => Não existe, remover
+            endereco => ok
+            numero => ok
+            enviada : Não existe, remover
+            complemente ok
+            bairro ok
+            cidade ok
+            estado ok
+            cep enviar sem mascara *
+
+
+            parcelas: [
+                id: ok
+                dataVencimento  deve ser esse formato "yyyy/mm/dd" *
+                valor : deve ser numerico float
+                formaPgto: ok
+                dadosPgto : ok
+                dataLimitePagamento :  deve ser esse formato  "yyyy/mm/dd" *
+                desconto: ok
+                texto : nao envia os acentos
+
+                rateio :[
+                    id : deve ser nuemerico
+                    valor: enviar o float
+                    beneficiado: ok
+                    doc: enviar sem mascara
+                ]
+
+            ]
