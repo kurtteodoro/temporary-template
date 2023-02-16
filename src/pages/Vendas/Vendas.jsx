@@ -240,8 +240,7 @@ const Vendas = function() {
                     venda: {...copiarVendaParaJSONRemessa(v, v.id)}
                 });
             });
-            console.log(JSON.stringify(vendasGerarRemessas));
-            return 0;
+            console.log(JSON.stringify(vendasGerarRemessas));            
             const vendaServiceAPI = new VendaServiceAPI();
             try {
                 setLoading(true);
@@ -249,7 +248,7 @@ const Vendas = function() {
                 toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Remessas geradas com sucesso', life: 3000 });
                 for (const v of vendasSelecionadaRemessa) {
                     await vendaServiceAPI.atualizarVenda({
-                        ...vendasGerarRemessas.find(e => e.codigo == v.codigo),
+                        ...vendasSelecionadaRemessa.find(e => e.id == v.id),
                         status: 2
                     }, v.id)
                 }

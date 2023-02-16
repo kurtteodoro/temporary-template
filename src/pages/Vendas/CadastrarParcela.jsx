@@ -91,7 +91,7 @@ const CadastrarParcela = function({ venda, refresh, parcelaEditando, voltar }) {
                 "valor": "R$ " + valorParcela,
                 "formaPgto": "boleto",
                 "dadosPgto": "informacao nao disponivel",
-                "dataLimitePagamento": moment(dataVencimento).add('days', 3).format('DD-MM-YYYY'),
+                "dataLimitePagamento": moment(dataVencimento).add('month', i).format('DD-MM-YYYY') ,// moment(dataVencimento).add('days', 3).format('DD-MM-YYYY'),
                 "desconto": 0,
                 "texto": "Não receber após o vencimento",
                 "rateio": null

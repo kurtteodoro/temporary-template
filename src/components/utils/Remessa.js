@@ -6,7 +6,7 @@ export const copiarVendaParaJSONRemessa = function(v, venda_id) {
     return {
         codigo: venda_id,
         unidade: v.unidade,
-        dataVenda: v.dataVenda.replace(/\//g, '-').split('-').reverse().join('/'),
+        dataVenda: v.dataVenda.replace(/\//g, '-').split('-').reverse().join('-'),
         DOCCliente: v.DOCCliente,
         nomeCliente: v.nomeCliente,
         emailCliente: v.emailCliente,
@@ -27,8 +27,8 @@ export const copiarParcelas = function(parcelas) {
         parcelas.forEach(parcela => {
             p.push({
                 dadosPgto: parcela.dadosPgto,
-                dataLimitePagamento: parcela.dataLimitePagamento.replace(/\//g, '-').split('-').reverse().join('/'),
-                dataVencimento: parcela.dataVencimento.replace(/\//g, '-').split('-').reverse().join('/'),
+                dataLimitePagamento: parcela.dataLimitePagamento.replace(/\//g, '-').split('-').reverse().join('-'),
+                dataVencimento: parcela.dataVencimento.replace(/\//g, '-').split('-').reverse().join('-'),
                 desconto: parcela.desconto,
                 formaPgto: parcela.formaPgto,
                 id: parcela.id,
