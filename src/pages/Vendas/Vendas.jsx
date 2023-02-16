@@ -12,11 +12,11 @@ import {Dialog} from "primereact/dialog";
 import {brlToFloat} from "../../components/utils/FormatacaoReal";
 import {copiarVendaParaJSON} from "../../components/utils/Venda";
 import {Checkbox} from "primereact/checkbox";
-<<<<<<< HEAD
+
 import {copiarVendaParaJSONRemessa} from "../../components/utils/Remessa";
-=======
+
 import hasRole from "../../utilities/AuthorizationButtons";
->>>>>>> f63b49dd3d2008e7e89f342dde8df3c17fa0b9e5
+
 
 const Vendas = function() {
 
@@ -159,11 +159,13 @@ const Vendas = function() {
         obj.acoes = (<div>
             <Button disabled={obj.status == 2} icon="pi pi-pencil" onClick={() => abrirModalEditarVenda(obj)} className="mr-2" tooltip="Editar Venda" />
             {/*<Button icon="pi pi-trash" onClick={() => abrirModalConfirmarExclusaoVenda(obj)} className="p-button-danger mr-2" />*/}
-<<<<<<< HEAD
-            <Button disabled={obj.status != 0} icon="pi pi-check" onClick={() => abrirModalAprovarVenda(obj)} className="p-button-success" />
-=======
-            <Button disabled={obj.status != 0} icon="pi pi-chevron-right" onClick={() => aprovarVenda(obj)} className="p-button-warning" tooltip="Aprovar Venda" />
->>>>>>> f63b49dd3d2008e7e89f342dde8df3c17fa0b9e5
+
+            <Button disabled={obj.status != 0} icon="pi pi-chevron-right" onClick={() => abrirModalAprovarVenda(obj)} className="p-button-warning" />
+
+         { 
+         /*  <Button disabled={obj.status != 0} icon="pi pi-chevron-right" onClick={() => aprovarVenda(obj)} className="p-button-warning" tooltip="Aprovar Venda" /> */
+    }
+
         </div>);
         obj.qtdParcelas = obj.numeroDeParcelas;
         obj.numeroDeParcelas = (<Button className="p-button-secondary" onClick={() => handleAbrirModalParcelas(obj)}>  
