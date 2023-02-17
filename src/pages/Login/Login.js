@@ -93,7 +93,7 @@ const Login = (props) => {
                     <form onSubmit={handleOnSubmit}>
                         <Toast ref={toast} />
                         <div className="flex align-items-center mb-6 logo-container just">
-                            <img src={`/assets/images/removebg.png`} className="login-logo" alt="login-logo" />
+                            <img src={`assets/images/logo.png`} className="login-logo" alt="login-logo" />
                             <img src={`assets/images/logo-maxtool.svg`} className="login-appname" alt="login-appname" />
                         </div>
                         <div className="form-container">

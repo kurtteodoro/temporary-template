@@ -141,7 +141,7 @@ const CadastrarParcela = function({ venda, refresh, parcelaEditando, voltar }) {
                     )
                 }
                 <div className="col-6">
-                    <Button loading={loading} type="submit" icon="pi pi-save" label={parcelaEditando ? "Editar parcela" : "Cadastrar parcela"} className="p-button-info" />
+                    <Button loading={loading} disabled={venda?.status == 2} type="submit" icon="pi pi-save" label={parcelaEditando ? "Editar parcela" : "Cadastrar parcela"} className="p-button-info" />
                 </div>
             </div>
         </form>

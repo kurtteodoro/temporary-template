@@ -315,20 +315,9 @@ const CadastrarVenda = function({ open, close, vendaEditando }) {
                             <label htmlFor="username">Valor da intermediação</label>
                         </span>
                     </div>
-                    <div className="col-6 mb-3">
-                        <span className="p-input-icon-right block p-float-label">
-                            <i className="pi pi-wallet" />
-                            <InputText value={numeroParcelas} onChange={e => setNumeroParcelas(e.target.value)} required type="number" min="1" className="w-full" placeholder="Número de parcelas" />
-                            <label htmlFor="username">Número de parcelas</label>
-                        </span>
-                    </div>
-                    <div className="col-6 mb-3">
-                        <span className="p-input-icon-right block p-float-label">
-                            <i className="pi pi-clone" />
-                            <InputText value={numeroContrato} onChange={e => setNumeroContrato(e.target.value)} required type="number" min="0" className="w-full" placeholder="Número do contrato" />
-                            <label htmlFor="username">Número de contrato</label>
-                        </span>
-                    </div>
+                    
+                    
+                    
                     <div className="col-6 mb-3">
                         <Button loading={loading} icon="pi pi-save" className="p-button-info" label={vendaEditando ? "Editar venda" : "Cadastrar venda"} />
                     </div>

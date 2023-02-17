@@ -301,8 +301,7 @@ const Vendas = function() {
                                         <Column className="white-space-nowrap" field="dataCriacaoVenda" header="Cadastrado em" />
                                         <Column className="white-space-nowrap" field="emailCliente" header="E-mail" />
                                         <Column className="white-space-nowrap" field="valorDaVenda" header="Valor da venda" />
-                                        <Column className="white-space-nowrap" field="valor" header="Valor da intermediação" />
-                                        <Column className="white-space-nowrap" field="numeroContrato" header="Nº Contrato" />
+                                        <Column className="white-space-nowrap" field="valor" header="Valor da intermediação" />                                        
                                         <Column className="white-space-nowrap" field="status_table" header="Status" />
                                         <Column className="white-space-nowrap" field="numeroDeParcelas" header="Parcelas" />
                                         <Column className="white-space-nowrap" field="acoes" header="Ações" />
